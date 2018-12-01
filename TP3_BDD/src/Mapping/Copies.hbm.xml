@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Nov 30, 2018 9:19:16 AM by Hibernate Tools 5.3.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 30, 2018 9:19:16 AM by Hibernate Tools 5.3.6.Final -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="false">
+
     <class dynamic-insert="false" dynamic-update="false" mutable="true" name="Model.Copies" optimistic-lock="version" polymorphism="implicit" schema="TPBDD" select-before-update="false" table="COPIES">
+
         <id name="numerocopie" type="int">
             <column name="NUMEROCOPIE" precision="6" scale="0"/>
             <generator class="assigned"/>
         </id>
-      <!--  <property generated="never" lazy="false" name="dateLocation" optimistic-lock="true" type="date" unique="false">
+        
+        <property generated="never" lazy="false" name="dateLocation" optimistic-lock="true" type="date" unique="false">
             <column length="7" name="DATELOCATION" not-null="true"/>
-        </property> -->
+        </property>
+        
         <many-to-one class="Model.Films" embed-xml="true" fetch="select" insert="true" name="films" not-found="exception" optimistic-lock="true" unique="false" update="true">
             <column length="100" name="TITREFILM" not-null="true" unique="true"/>
         </many-to-one>
+        
         <many-to-one class="Model.Clients" embed-xml="true" fetch="select" insert="true" name="clients" not-found="exception" optimistic-lock="true" unique="false" update="true">
             <column length="30" name="NOMCLIENT"/>
             <column length="30" name="PRENOMCLIENT"/>
         </many-to-one>
         
     </class>
+
 </hibernate-mapping>

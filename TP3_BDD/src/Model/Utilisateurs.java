@@ -20,7 +20,7 @@ public class Utilisateurs implements java.io.Serializable {
 	private Date naissance;
 	private String motdepasse;
 	private String adresse;
-	private Set employeses = new HashSet(0);
+	private Set<Object> employeses = new HashSet<Object>(0);
 	private Clients clients;
 
 	public Utilisateurs() {
@@ -38,7 +38,7 @@ public class Utilisateurs implements java.io.Serializable {
 	}
 
 	public Utilisateurs(UtilisateursId id, String courriel, String telephone, Date naissance, String motdepasse,
-			String adresse, Set employeses, Clients clients) {
+			String adresse, Set<Object> employeses, Clients clients) {
 		this.id = id;
 		this.courriel = courriel;
 		this.telephone = telephone;
@@ -97,11 +97,11 @@ public class Utilisateurs implements java.io.Serializable {
 		this.adresse = adresse;
 	}
 
-	public Set getEmployeses() {
+	public Set<Object> getEmployeses() {
 		return this.employeses;
 	}
 
-	public void setEmployeses(Set employeses) {
+	public void setEmployeses(Set<Object> employeses) {
 		this.employeses = employeses;
 	}
 

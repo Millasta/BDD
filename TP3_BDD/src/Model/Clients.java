@@ -10,16 +10,13 @@ import java.util.Set;
  */
 public class Clients implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 172434504324018254L;
 	private ClientsId id;
 	private Forfaits forfaits;
 	private String typecarte;
 	private long numerocarte;
 	private Date dateexpiration;
-	private Set copieses = new HashSet(0);
+	private Set<Object> copieses = new HashSet<Object>(0);
 
 	public Clients() {
 	}
@@ -33,7 +30,7 @@ public class Clients implements java.io.Serializable {
 	}
 
 	public Clients(ClientsId id, Forfaits forfaits, String typecarte, long numerocarte, Date dateexpiration,
-			Set copieses) {
+			Set<Object> copieses) {
 		this.id = id;
 		this.forfaits = forfaits;
 		this.typecarte = typecarte;
@@ -82,11 +79,11 @@ public class Clients implements java.io.Serializable {
 		this.dateexpiration = dateexpiration;
 	}
 
-	public Set getCopieses() {
+	public Set<Object> getCopieses() {
 		return this.copieses;
 	}
 
-	public void setCopieses(Set copieses) {
+	public void setCopieses(Set<Object> copieses) {
 		this.copieses = copieses;
 	}
 

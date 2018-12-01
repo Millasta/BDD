@@ -102,7 +102,6 @@ public class ControleFilm {
 	 * @param paysProductions : les pays de productions du nouveau film
 	 * @param nbCopie : le nombre de copie du nouveau film
 	 */
-	@SuppressWarnings("unchecked")
 	public void CreerFilm(String titre, int annee, short duree, String langues, String resume, String genres, String paysProduction, int nbCopie) throws Exception, SQLException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
@@ -141,7 +140,6 @@ public class ControleFilm {
 	 * @param biographie : la biographie du nouvel acteur
 	 * @param role : rôle qu'il joue dans le film
 	 */
-	@SuppressWarnings("unchecked")
 	public void CreerRolesActeur(String titreFilm, String nom, String prenom, Date dateNaissance, String lieuNaissance, String biographie, String role) throws SQLException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
@@ -168,7 +166,6 @@ public class ControleFilm {
 	 * @param lieuNaissance : le lieu de naissance du nouveau scenariste
 	 * @param biographie : la biographie du nouveau scenariste
 	 */
-	@SuppressWarnings("unchecked")
 	public void CreerScenariste(String titreFilm, String nom, String prenom, Date dateNaissance, String lieuNaissance, String biographie) throws SQLException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
@@ -279,7 +276,6 @@ public class ControleFilm {
 	 * @param titre : le titre du film demande
 	 * @return boolean louable
 	 */
-	@SuppressWarnings("unchecked")
 	public boolean Louer(String nom, String prenom, String titre) throws SQLException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();

@@ -18,8 +18,8 @@ public class Personnes implements java.io.Serializable {
 	private Date naissance;
 	private String lieunaissance;
 	private String biographie;
-	private Set rolesacteurses = new HashSet(0);
-	private Set filmses = new HashSet(0);
+	private Set<Object> rolesacteurses = new HashSet<Object>(0);
+	private Set<Object> filmses = new HashSet<Object>(0);
 
 	public Personnes() {
 	}
@@ -31,8 +31,8 @@ public class Personnes implements java.io.Serializable {
 		this.biographie = biographie;
 	}
 
-	public Personnes(PersonnesId id, Date naissance, String lieunaissance, String biographie, Set rolesacteurses,
-			Set filmses) {
+	public Personnes(PersonnesId id, Date naissance, String lieunaissance, String biographie, Set<Object> rolesacteurses,
+			Set<Object> filmses) {
 		this.id = id;
 		this.naissance = naissance;
 		this.lieunaissance = lieunaissance;
@@ -73,19 +73,19 @@ public class Personnes implements java.io.Serializable {
 		this.biographie = biographie;
 	}
 
-	public Set getRolesacteurses() {
+	public Set<Object> getRolesacteurses() {
 		return this.rolesacteurses;
 	}
 
-	public void setRolesacteurses(Set rolesacteurses) {
+	public void setRolesacteurses(Set<Object> rolesacteurses) {
 		this.rolesacteurses = rolesacteurses;
 	}
 
-	public Set getFilmses() {
+	public Set<Object> getFilmses() {
 		return this.filmses;
 	}
 
-	public void setFilmses(Set filmses) {
+	public void setFilmses(Set<Object> filmses) {
 		this.filmses = filmses;
 	}
 

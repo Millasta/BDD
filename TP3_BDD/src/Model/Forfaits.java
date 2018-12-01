@@ -17,7 +17,7 @@ public class Forfaits implements java.io.Serializable {
 	private double cout;
 	private byte locationmax;
 	private short dureemax;
-	private Set clientses = new HashSet(0);
+	private Set<Object> clientses = new HashSet<Object>(0);
 
 	public Forfaits() {
 	}
@@ -29,7 +29,7 @@ public class Forfaits implements java.io.Serializable {
 		this.dureemax = dureemax;
 	}
 
-	public Forfaits(String typeforfait, double cout, byte locationmax, short dureemax, Set clientses) {
+	public Forfaits(String typeforfait, double cout, byte locationmax, short dureemax, Set<Object> clientses) {
 		this.typeforfait = typeforfait;
 		this.cout = cout;
 		this.locationmax = locationmax;
@@ -69,11 +69,11 @@ public class Forfaits implements java.io.Serializable {
 		this.dureemax = dureemax;
 	}
 
-	public Set getClientses() {
+	public Set<Object> getClientses() {
 		return this.clientses;
 	}
 
-	public void setClientses(Set clientses) {
+	public void setClientses(Set<Object> clientses) {
 		this.clientses = clientses;
 	}
 

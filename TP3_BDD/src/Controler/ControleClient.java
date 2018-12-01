@@ -1,8 +1,6 @@
 package Controler;
 
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -10,7 +8,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 import Model.Clients;
@@ -41,17 +38,6 @@ public class ControleClient {
 		clients = new ArrayList<Clients>();
 		ControlerForfait = controlerForfait;
 		Initialiser();
-		/*try {
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			Date dateNaissance = format.parse ( "1995-12-31" );  
-			Date   dateExpi = format.parse ( "2019-12-31" );  
-			//ControlerForfait.Creer("DEBUTANT", 12.34, (byte)10, (short)60);
-			Creer("IENCLIT", "PAUL", "courriel@client.ca", "0123456789", dateNaissance, "mdpclient", "Adresse cool", "Visa", 123456789, dateExpi, "DEBUTANT");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}*/
 	}
 	
 	/**
@@ -66,7 +52,6 @@ public class ControleClient {
 	/**
 	 * Initialise la liste des clients avec la bdd
 	 */
-	@SuppressWarnings("unchecked")
 	private void Initialiser()
 	{		
 		Session hbSession = HibernateUtil.DemarerTransaction();
@@ -99,7 +84,6 @@ public class ControleClient {
 	 * @param dateExpiration : la date d'expiration de la carte de credit du nouveau client
 	 * @param typeForfait : le type de forfait du nouveau client
 	 */
-	@SuppressWarnings("unchecked")
 	public void Creer(String nom, String prenom, String courriel, String telephone, Date dateNaissance, String motDePasse, String adresse, String typeCarte, long numeroCarte, Date dateExpiration, String typeForfait) throws SQLException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();

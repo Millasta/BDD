@@ -9,9 +9,6 @@ import java.util.Set;
  */
 public class Films implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1694271170317920677L;
 	private String titre;
 	private int annee;
@@ -20,9 +17,9 @@ public class Films implements java.io.Serializable {
 	private String resume;
 	private String genres;
 	private String paysproduction;
-	private Set rolesacteurses = new HashSet(0);
-	private Set personneses = new HashSet(0); // scenaristes
-	private Set copieses = new HashSet(0);
+	private Set<Object> rolesacteurses = new HashSet<Object>(0);
+	private Set<Object> personneses = new HashSet<Object>(0); // scenaristes
+	private Set<Object> copieses = new HashSet<Object>(0);
 
 	public Films() {
 	}
@@ -39,7 +36,7 @@ public class Films implements java.io.Serializable {
 	}
 
 	public Films(String titre, int annee, short duree, String langue, String resume, String genres,
-			String paysproduction, Set rolesacteurses, Set personneses, Set copieses) {
+			String paysproduction, Set<Object> rolesacteurses, Set<Object> personneses, Set<Object> copieses) {
 		this.titre = titre;
 		this.annee = annee;
 		this.duree = duree;
@@ -109,27 +106,27 @@ public class Films implements java.io.Serializable {
 		this.paysproduction = paysproduction;
 	}
 
-	public Set getRolesacteurses() {
+	public Set<Object> getRolesacteurses() {
 		return this.rolesacteurses;
 	}
 
-	public void setRolesacteurses(Set rolesacteurses) {
+	public void setRolesacteurses(Set<Object> rolesacteurses) {
 		this.rolesacteurses = rolesacteurses;
 	}
 
-	public Set getPersonneses() {
+	public Set<Object> getPersonneses() {
 		return this.personneses;
 	}
 
-	public void setPersonneses(Set personneses) {
+	public void setPersonneses(Set<Object> personneses) {
 		this.personneses = personneses;
 	}
 
-	public Set getCopieses() {
+	public Set<Object> getCopieses() {
 		return this.copieses;
 	}
 
-	public void setCopieses(Set copieses) {
+	public void setCopieses(Set<Object> copieses) {
 		this.copieses = copieses;
 	}
 

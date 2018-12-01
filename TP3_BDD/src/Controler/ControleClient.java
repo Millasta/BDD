@@ -1,6 +1,8 @@
 package Controler;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -50,6 +52,22 @@ public class ControleClient {
 	}
 	
 	/**
+	 * Parse un string en date
+	 * @param date : le string a transformer
+	 * @return Date parsedDate
+	 * @throws ParseException
+	 */
+	private Date StringToDate(String date) throws ParseException
+	{
+		Date parsedDate = null;
+		
+		SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+		parsedDate = format.parse(date);
+		
+		return parsedDate;
+	}
+	
+	/**
 	 * Initialise la liste des clients avec la bdd
 	 */
 	private void Initialiser()
@@ -83,13 +101,14 @@ public class ControleClient {
 	 * @param numeroCarte : le numero de carte de credit du nouveau client
 	 * @param dateExpiration : la date d'expiration de la carte de credit du nouveau client
 	 * @param typeForfait : le type de forfait du nouveau client
+	 * @throws ParseException 
 	 */
-	public void Creer(String nom, String prenom, String courriel, String telephone, Date dateNaissance, String motDePasse, String adresse, String typeCarte, long numeroCarte, Date dateExpiration, String typeForfait) throws SQLException
+	public void Creer(String nom, String prenom, String courriel, String telephone, String dateNaissance, String motDePasse, String adresse, String typeCarte, long numeroCarte, Date dateExpiration, String typeForfait) throws SQLException, ParseException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		
 		UtilisateursId idUtilisateur = new UtilisateursId(nom, prenom);
-		Utilisateurs utilisateur = new Utilisateurs(idUtilisateur, courriel, telephone, dateNaissance, motDePasse, adresse);
+		Utilisateurs utilisateur = new Utilisateurs(idUtilisateur, courriel, telephone, StringToDate(dateNaissance), motDePasse, adresse);
 		ClientsId idClient = new ClientsId(utilisateur);
 		Clients client = new Clients(idClient, ControlerForfait.Rechercher(typeForfait), typeCarte, numeroCarte, dateExpiration);
 		
@@ -115,8 +134,9 @@ public class ControleClient {
 	 * @param numeroCarte : le nouveau numero de carte de credit du client
 	 * @param dateExpiration : la nouvelle date d'expiration de la carte de credit du client
 	 * @param typeForfait : le nouveau type de forfait du client
+	 * @throws ParseException 
 	 */
-	public void Modifier(String nom, String prenom, String courriel, String telephone, Date dateNaissance, String motDePasse, String adresse, String typeCarte, int numeroCarte, Date dateExpiration, String typeForfait) throws SQLException
+	public void Modifier(String nom, String prenom, String courriel, String telephone, String dateNaissance, String motDePasse, String adresse, String typeCarte, int numeroCarte, Date dateExpiration, String typeForfait) throws SQLException, ParseException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		
@@ -125,7 +145,7 @@ public class ControleClient {
 		
 		bdClient.getId().getUtilisateurs().setCourriel(courriel);
 		bdClient.getId().getUtilisateurs().setTelephone(telephone);
-		bdClient.getId().getUtilisateurs().setNaissance(dateNaissance);
+		bdClient.getId().getUtilisateurs().setNaissance(StringToDate(dateNaissance));
 		bdClient.getId().getUtilisateurs().setMotdepasse(Integer.toString(motDePasse.hashCode()));
 		bdClient.getId().getUtilisateurs().setAdresse(adresse);
 		bdClient.setTypecarte(typeCarte);
@@ -135,7 +155,7 @@ public class ControleClient {
 		
 		alClient.getId().getUtilisateurs().setCourriel(courriel);
 		alClient.getId().getUtilisateurs().setTelephone(telephone);
-		alClient.getId().getUtilisateurs().setNaissance(dateNaissance);
+		alClient.getId().getUtilisateurs().setNaissance(StringToDate(dateNaissance));
 		alClient.getId().getUtilisateurs().setMotdepasse(Integer.toString(motDePasse.hashCode()));
 		alClient.getId().getUtilisateurs().setAdresse(adresse);
 		alClient.setTypecarte(typeCarte);

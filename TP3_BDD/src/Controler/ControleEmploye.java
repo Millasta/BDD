@@ -1,6 +1,8 @@
 package Controler;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -23,8 +25,9 @@ public class ControleEmploye {
 	 * Construit le controler des employes
 	 * Initialise la liste des employes avec la bdd
 	 * Cree l'administrateur systeme
+	 * @throws ParseException 
 	 */
-	public ControleEmploye() throws SQLException
+	public ControleEmploye() throws SQLException, ParseException
 	{
 		employes = new ArrayList<Employes>();
 		Initialiser();
@@ -38,19 +41,7 @@ public class ControleEmploye {
 	public ArrayList<Employes> getEmployes()
 	{
 		return employes;
-	}
-	
-	/**
-	 * Cree l'administrateur systeme si il n'existe pas afin de pouvoir utiliser l'application au premier lancement
-	 */
-	private void CreerAdministrateur() throws SQLException
-	{
-		if(Rechercher(0) == null)
-		{
-			Creer(0, "system", "admin", "admin.system@gmail.com", "confidentiel", new Date(), "admin", "confidentiel");
-		}
-	}
-	
+	}	
 	
 	/**
 	 * Initialise la liste des employes avec la bdd
@@ -74,6 +65,34 @@ public class ControleEmploye {
 	}
 	
 	/**
+	 * Cree l'administrateur systeme si il n'existe pas afin de pouvoir utiliser l'application au premier lancement
+	 * @throws ParseException 
+	 */
+	private void CreerAdministrateur() throws SQLException, ParseException
+	{
+		if(Rechercher(0) == null)
+		{
+			Creer(0, "system", "admin", "admin.system@gmail.com", "confidentiel", "09/04/1996", "admin", "confidentiel");
+		}
+	}
+	
+	/**
+	 * Parse un string en date
+	 * @param date : le string a transformer
+	 * @return Date parsedDate
+	 * @throws ParseException
+	 */
+	private Date StringToDate(String date) throws ParseException
+	{
+		Date parsedDate = null;
+		
+		SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+		parsedDate = format.parse(date);
+		
+		return parsedDate;
+	}
+	
+	/**
 	 * Cree un nouvel employe
 	 * @param matricule : le matricule du nouvel employe
 	 * @param nom : le nom du nouvel employe
@@ -83,13 +102,14 @@ public class ControleEmploye {
 	 * @param dateNaissance : la date de naissance du nouvel employe
 	 * @param motDePasse : le mot de passe du nouvel employe
 	 * @param adresse : l'adresse du nouvel employe
+	 * @throws ParseException 
 	 */
-	public void Creer(int matricule, String nom, String prenom, String courriel, String telephone, Date dateNaissance, String motDePasse, String adresse) throws SQLException
+	public void Creer(int matricule, String nom, String prenom, String courriel, String telephone, String dateNaissance, String motDePasse, String adresse) throws SQLException, ParseException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		
 		UtilisateursId idUtilisateur = new UtilisateursId(nom, prenom);
-		Utilisateurs utilisateur = new Utilisateurs(idUtilisateur, courriel, telephone, dateNaissance, motDePasse, adresse);
+		Utilisateurs utilisateur = new Utilisateurs(idUtilisateur, courriel, telephone, StringToDate(dateNaissance), motDePasse, adresse);
 		Employes employe = new Employes(matricule, utilisateur);
 		
 		hbSession.save(utilisateur);
@@ -107,8 +127,9 @@ public class ControleEmploye {
 	 * @param dateNaissance : la nouvelle date de naissance de l'employe
 	 * @param motDePasse : le nouveau mot de passe de l'employe
 	 * @param adresse : la nouvelle adresse de l'employe
+	 * @throws ParseException 
 	 */
-	public void Modifier(int matricule, String courriel, String telephone, Date dateNaissance, String motDePasse, String adresse) throws SQLException
+	public void Modifier(int matricule, String courriel, String telephone, String dateNaissance, String motDePasse, String adresse) throws SQLException, ParseException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		
@@ -117,13 +138,13 @@ public class ControleEmploye {
 		
 		bdEmploye.getUtilisateurs().setCourriel(courriel);
 		bdEmploye.getUtilisateurs().setTelephone(telephone);
-		bdEmploye.getUtilisateurs().setNaissance(dateNaissance);
+		bdEmploye.getUtilisateurs().setNaissance(StringToDate(dateNaissance));
 		bdEmploye.getUtilisateurs().setMotdepasse(Integer.toString(motDePasse.hashCode()));
 		bdEmploye.getUtilisateurs().setAdresse(adresse);
 		
 		alEmploye.getUtilisateurs().setCourriel(courriel);
 		alEmploye.getUtilisateurs().setTelephone(telephone);
-		alEmploye.getUtilisateurs().setNaissance(dateNaissance);
+		alEmploye.getUtilisateurs().setNaissance(StringToDate(dateNaissance));
 		alEmploye.getUtilisateurs().setMotdepasse(Integer.toString(motDePasse.hashCode()));
 		alEmploye.getUtilisateurs().setAdresse(adresse);
 		

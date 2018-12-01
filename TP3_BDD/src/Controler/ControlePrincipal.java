@@ -50,8 +50,9 @@ public class ControlePrincipal {
 	
 	/**
 	 * Construit le controler dans sa totalite en créant les sous controlers
+	 * @throws Exception, SQLException
 	 */
-	public ControlePrincipal() throws SQLException
+	public ControlePrincipal() throws SQLException, Exception
 	{
 		ControlerForfait = new ControleForfait();
 		ControlerClient = new ControleClient(ControlerForfait);

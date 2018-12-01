@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Nov 30, 2018 9:19:16 AM by Hibernate Tools 5.3.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="false">
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="Model.Films" optimistic-lock="version" polymorphism="implicit" schema="TPBDD" select-before-update="false" table="FILMS">
+        <id name="titre" type="string">
+            <column length="100" name="TITRE"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="annee" optimistic-lock="true" type="int" unique="false">
+            <column name="ANNEE" not-null="true" precision="6" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="duree" optimistic-lock="true" type="short" unique="false">
+            <column name="DUREE" not-null="true" precision="4" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="langue" optimistic-lock="true" type="string" unique="false">
+            <column length="20" name="LANGUE" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="resume" optimistic-lock="true" type="string" unique="false">
+            <column length="1000" name="RESUME" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="genres" optimistic-lock="true" type="string" unique="false">
+            <column length="200" name="GENRES" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="paysproduction" optimistic-lock="true" type="string" unique="false">
+            <column length="200" name="PAYSPRODUCTION" not-null="true"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="rolesacteurses" optimistic-lock="true" sort="unsorted" table="ROLESACTEURS">
+            <key on-delete="noaction">
+                <column length="100" name="TITREFILM" not-null="true"/>
+            </key>
+            <one-to-many class="Model.Rolesacteurs" embed-xml="true" not-found="exception"/>
+        </set>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="personneses" optimistic-lock="true" sort="unsorted" table="SCENARISTES">
+            <key on-delete="noaction">
+                <column length="100" name="TITREFILM" not-null="true"/>
+            </key>
+            <many-to-many embed-xml="true" entity-name="Model.Personnes" not-found="exception" unique="false">
+                <column length="30" name="NOM" not-null="true"/>
+                <column length="30" name="PRENOM" not-null="true"/>
+            </many-to-many>
+        </set>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="copieses" optimistic-lock="true" sort="unsorted" table="COPIES">
+            <key on-delete="noaction">
+                <column length="100" name="TITREFILM" not-null="true" unique="true"/>
+            </key>
+            <one-to-many class="Model.Copies" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

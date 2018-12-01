@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Nov 30, 2018 9:19:16 AM by Hibernate Tools 5.3.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="false">
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="Model.Forfaits" optimistic-lock="version" polymorphism="implicit" schema="TPBDD" select-before-update="false" table="FORFAITS">
+        <id name="typeforfait" type="string">
+            <column length="20" name="TYPEFORFAIT"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="cout" optimistic-lock="true" type="double" unique="false">
+            <column name="COUT" not-null="true" precision="63" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="locationmax" optimistic-lock="true" type="byte" unique="false">
+            <column name="LOCATIONMAX" not-null="true" precision="2" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="dureemax" optimistic-lock="true" type="short" unique="false">
+            <column name="DUREEMAX" not-null="true" precision="4" scale="0"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="clientses" optimistic-lock="true" sort="unsorted" table="CLIENTS">
+            <key on-delete="noaction">
+                <column length="20" name="TYPEFORFAIT" not-null="true"/>
+            </key>
+            <one-to-many class="Model.Clients" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

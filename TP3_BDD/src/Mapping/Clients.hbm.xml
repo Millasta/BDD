@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Nov 30, 2018 9:19:16 AM by Hibernate Tools 5.3.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="false">
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="Model.Clients" optimistic-lock="version" polymorphism="implicit" schema="TPBDD" select-before-update="false" table="CLIENTS">
+        <composite-id class="Model.ClientsId" mapped="false" name="id" unsaved-value="undefined">
+            <key-many-to-one class="Model.Utilisateurs" name="utilisateurs">
+                <column length="30" name="NOM"/>
+                <column length="30" name="PRENOM"/>
+            </key-many-to-one>
+        </composite-id>
+        <many-to-one class="Model.Forfaits" embed-xml="true" fetch="select" insert="true" name="forfaits" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column length="20" name="TYPEFORFAIT" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="typecarte" optimistic-lock="true" type="string" unique="false">
+            <column length="16" name="TYPECARTE" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="numerocarte" optimistic-lock="true" type="long" unique="false">
+            <column name="NUMEROCARTE" not-null="true" precision="16" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="dateexpiration" optimistic-lock="true" type="date" unique="false">
+            <column length="7" name="DATEEXPIRATION" not-null="true"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="copieses" optimistic-lock="true" sort="unsorted" table="COPIES">
+            <key on-delete="noaction">
+                <column length="30" name="NOMCLIENT"/>
+                <column length="30" name="PRENOMCLIENT"/>
+            </key>
+            <one-to-many class="Model.Copies" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

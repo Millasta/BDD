@@ -1,11 +1,12 @@
 package Controler;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import org.hibernate.Session;
 
@@ -92,6 +93,22 @@ public class ControleFilm {
 	}
 	
 	/**
+	 * Parse un string en date
+	 * @param date : le string a transformer
+	 * @return Date parsedDate
+	 * @throws ParseException
+	 */
+	private Date StringToDate(String date) throws ParseException
+	{
+		Date parsedDate = null;
+		
+		SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+		parsedDate = format.parse(date);
+		
+		return parsedDate;
+	}
+	
+	/**
 	 * Cree un nouveau film
 	 * @param titre : le titre du nouveau film
 	 * @param annee : l'annee du nouveau film
@@ -101,6 +118,7 @@ public class ControleFilm {
 	 * @param genres : les genres du nouveau film
 	 * @param paysProductions : les pays de productions du nouveau film
 	 * @param nbCopie : le nombre de copie du nouveau film
+	 * @throws Exception, SQLException
 	 */
 	public void CreerFilm(String titre, int annee, short duree, String langues, String resume, String genres, String paysProduction, int nbCopie) throws Exception, SQLException
 	{
@@ -135,18 +153,20 @@ public class ControleFilm {
 	 * @param lieuNaissance : le lieu de naissance du nouvel acteur
 	 * @param biographie : la biographie du nouvel acteur
 	 * @param role : rôle qu'il joue dans le film
+	 * @throws SQLException, ParseException
 	 */
-	public void CreerRolesActeur(String titreFilm, String nom, String prenom, Date dateNaissance, String lieuNaissance, String biographie, String role) throws SQLException
+	public void CreerRolesActeur(String titreFilm, String nom, String prenom, String dateNaissance, String lieuNaissance, String biographie, String role) throws SQLException, ParseException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		Films film = RechercherFilm(titreFilm);
 		PersonnesId idPersonne = new PersonnesId(nom, prenom);
-		Personnes personne = new Personnes(idPersonne, dateNaissance, lieuNaissance, biographie);
+		Personnes personne = new Personnes(idPersonne, StringToDate(dateNaissance), lieuNaissance, biographie);
 		RolesacteursId idActeur = new RolesacteursId(personne, film); 
 		Rolesacteurs acteur = new Rolesacteurs(idActeur, role);
 		
 		RechercherFilm(titreFilm).getRolesacteurses().add(acteur);
 		
+		hbSession.save(personne);
 		hbSession.save(acteur);
 		RolesActeurs.add(acteur);
 		
@@ -161,13 +181,15 @@ public class ControleFilm {
 	 * @param dateNaissance : la date de naissance du nouveau scenariste
 	 * @param lieuNaissance : le lieu de naissance du nouveau scenariste
 	 * @param biographie : la biographie du nouveau scenariste
+	 * @throws SQLException
+	 * @throws ParseException 
 	 */
-	public void CreerScenariste(String titreFilm, String nom, String prenom, Date dateNaissance, String lieuNaissance, String biographie) throws SQLException
+	public void CreerScenariste(String titreFilm, String nom, String prenom, String dateNaissance, String lieuNaissance, String biographie) throws SQLException, ParseException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		
 		PersonnesId idPersonne = new PersonnesId(nom, prenom);
-		Personnes scenariste = new Personnes(idPersonne, dateNaissance, lieuNaissance, biographie);
+		Personnes scenariste = new Personnes(idPersonne, StringToDate(dateNaissance), lieuNaissance, biographie);
 	
 		RechercherFilm(titreFilm).getPersonneses().add(scenariste);
 		
@@ -186,6 +208,7 @@ public class ControleFilm {
 	 * @param resume : le nouveau resume du film
 	 * @param genres : les nouveaux genres du film
 	 * @param paysProductions : les nouveaux pays de productions du film
+	 * @throws SQLException
 	 */
 	public void ModifierFilm(String titre, int annee, short duree, String langue, String resume, String genres, String paysProduction) throws SQLException
 	{
@@ -219,19 +242,21 @@ public class ControleFilm {
 	 * @param dateNaissance : la nouvelle date de naissance de l'acteur
 	 * @param lieuNaissance : le nouveau lieu de naissance de l'acteur
 	 * @param biographie : la nouvelle biographie de l'acteur
+	 * @throws SQLException
+	 * @throws ParseException 
 	 */
-	public void ModifierRolesActeur(String nom, String prenom, String titreFilm, Date dateNaissance, String lieuNaissance, String biographie) throws SQLException
+	public void ModifierRolesActeur(String nom, String prenom, String titreFilm, String dateNaissance, String lieuNaissance, String biographie) throws SQLException, ParseException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		
 		Rolesacteurs bdActeur = (Rolesacteurs) hbSession.createQuery("from RolesActeurs ra where ra.Nom = :nom and ra.Prenom = :prenom and ra.TitreFilm = :titre").setParameter("nom", nom).setParameter("prenom", prenom).setParameter("titre", titreFilm).list().iterator().next();
 		Rolesacteurs alActeur = RechercherActeur(nom, prenom);
 		
-		bdActeur.getId().getPersonnes().setNaissance(dateNaissance);
+		bdActeur.getId().getPersonnes().setNaissance(StringToDate(dateNaissance));
 		bdActeur.getId().getPersonnes().setLieunaissance(lieuNaissance);
 		bdActeur.getId().getPersonnes().setBiographie(biographie);
 		
-		alActeur.getId().getPersonnes().setNaissance(dateNaissance);
+		alActeur.getId().getPersonnes().setNaissance(StringToDate(dateNaissance));
 		alActeur.getId().getPersonnes().setLieunaissance(lieuNaissance);
 		alActeur.getId().getPersonnes().setBiographie(biographie);
 		
@@ -246,19 +271,21 @@ public class ControleFilm {
 	 * @param dateNaissance : la nouvelle date de naissance du scenariste
 	 * @param lieuNaissance : le nouveau lieu de naissance du scenariste
 	 * @param biographie : la nouvelle biographie du scenariste
+	 * @throws SQLException
+	 * @throws ParseException 
 	 */
-	public void ModifierScenariste(String nom, String prenom, String titreFilm, Date dateNaissance, String lieuNaissance, String biographie) throws SQLException
+	public void ModifierScenariste(String nom, String prenom, String titreFilm, String dateNaissance, String lieuNaissance, String biographie) throws SQLException, ParseException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		
 		Personnes bdScenariste = (Personnes) hbSession.createQuery("from Scenaristes rea where rea.Nom = :nom and rea.Prenom = :prenom and rea.TitreFilm = :titre").setParameter("nom", nom).setParameter("prenom", prenom).setParameter("titre", titreFilm).list().iterator().next();
 		Personnes alScenariste = RechercherScenariste(nom, prenom);
 		
-		bdScenariste.setNaissance(dateNaissance);
+		bdScenariste.setNaissance(StringToDate(dateNaissance));
 		bdScenariste.setLieunaissance(lieuNaissance);
 		bdScenariste.setBiographie(biographie);
 		
-		alScenariste.setNaissance(dateNaissance);
+		alScenariste.setNaissance(StringToDate(dateNaissance));
 		alScenariste.setLieunaissance(lieuNaissance);
 		alScenariste.setBiographie(biographie);
 		
@@ -271,6 +298,7 @@ public class ControleFilm {
 	 * @param prenom : le prenom du client demandant
 	 * @param titre : le titre du film demande
 	 * @return boolean louable
+	 * @throws SQLException
 	 */
 	public boolean Louer(String nom, String prenom, String titre) throws SQLException
 	{
@@ -303,6 +331,7 @@ public class ControleFilm {
 	 * @param nom : le nom du client demandant
 	 * @param prenom : le prenom du client demandant
 	 * @param titre : le titre du film a rendre
+	 * @throws SQLException
 	 */
 	public void Rendre(String nom, String prenom, String titre) throws SQLException
 	{
@@ -601,6 +630,7 @@ public class ControleFilm {
 	/**
 	 * Supprime le film correspondant au titre passe en argument
 	 * @param titre : le titre du film
+	 * @throws SQLException
 	 */
 	public void SupprimerFilm(String titre) throws SQLException
 	{
@@ -617,6 +647,7 @@ public class ControleFilm {
 	 * Supprime l'acteur correspondant aux nom et prenom passe en argument
 	 * @param nom : le nom de l'acteur
 	 * @param prenom : le prenom de l'acteur
+	 * @throws SQLException
 	 */
 	public void SupprimerRolesActeur(String nom, String prenom) throws SQLException
 	{
@@ -633,6 +664,7 @@ public class ControleFilm {
 	  * Supprime le scenariste correspondant aux nom et prenom passe en argument
 	 * @param nom : le nom du scenariste
 	 * @param prenom : le prenom du scenariste
+	 * @throws SQLException
 	 */
 	public void SupprimerScenariste(String nom, String prenom) throws SQLException
 	{

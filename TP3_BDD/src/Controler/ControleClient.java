@@ -103,14 +103,14 @@ public class ControleClient {
 	 * @param typeForfait : le type de forfait du nouveau client
 	 * @throws ParseException 
 	 */
-	public void Creer(String nom, String prenom, String courriel, String telephone, String dateNaissance, String motDePasse, String adresse, String typeCarte, long numeroCarte, Date dateExpiration, String typeForfait) throws SQLException, ParseException
+	public void Creer(String nom, String prenom, String courriel, String telephone, String dateNaissance, String motDePasse, String adresse, String typeCarte, long numeroCarte, String dateExpiration, String typeForfait) throws SQLException, ParseException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		
 		UtilisateursId idUtilisateur = new UtilisateursId(nom, prenom);
 		Utilisateurs utilisateur = new Utilisateurs(idUtilisateur, courriel, telephone, StringToDate(dateNaissance), motDePasse, adresse);
 		ClientsId idClient = new ClientsId(utilisateur);
-		Clients client = new Clients(idClient, ControlerForfait.Rechercher(typeForfait), typeCarte, numeroCarte, dateExpiration);
+		Clients client = new Clients(idClient, ControlerForfait.Rechercher(typeForfait), typeCarte, numeroCarte, StringToDate(dateNaissance));
 		
 		ControlerForfait.Rechercher(typeForfait).getClientses().add(client);
 		
@@ -136,7 +136,7 @@ public class ControleClient {
 	 * @param typeForfait : le nouveau type de forfait du client
 	 * @throws ParseException 
 	 */
-	public void Modifier(String nom, String prenom, String courriel, String telephone, String dateNaissance, String motDePasse, String adresse, String typeCarte, int numeroCarte, Date dateExpiration, String typeForfait) throws SQLException, ParseException
+	public void Modifier(String nom, String prenom, String courriel, String telephone, String dateNaissance, String motDePasse, String adresse, String typeCarte, int numeroCarte, String dateExpiration, String typeForfait) throws SQLException, ParseException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		
@@ -150,7 +150,7 @@ public class ControleClient {
 		bdClient.getId().getUtilisateurs().setAdresse(adresse);
 		bdClient.setTypecarte(typeCarte);
 		bdClient.setNumerocarte(numeroCarte);
-		bdClient.setDateexpiration(dateExpiration);
+		bdClient.setDateexpiration(StringToDate(dateNaissance));
 		bdClient.setForfaits(ControlerForfait.Rechercher(typeForfait));
 		
 		alClient.getId().getUtilisateurs().setCourriel(courriel);
@@ -160,7 +160,7 @@ public class ControleClient {
 		alClient.getId().getUtilisateurs().setAdresse(adresse);
 		alClient.setTypecarte(typeCarte);
 		alClient.setNumerocarte(numeroCarte);
-		alClient.setDateexpiration(dateExpiration);
+		alClient.setDateexpiration(StringToDate(dateNaissance));
 		alClient.setForfaits(ControlerForfait.Rechercher(typeForfait));
 		
 		HibernateUtil.RealiserTransaction();

@@ -112,11 +112,7 @@ public class ControleFilm {
 		{
 			for(int iterator = 0; iterator <= nbCopie; iterator++)
 			{
-				// A revoir
-				// Génération aléatoire d'un numéro de copie;
-				Random r = new Random();
-				int idCopie = r.nextInt();
-				film.getCopieses().add(new Copies(idCopie, film));
+				film.getCopieses().add(new Copies(Copies.size() + 1, film));
 			}
 		}
 		else

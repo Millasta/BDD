@@ -45,8 +45,8 @@ public class ControleForfait {
 		
 		for(Iterator<?> iForfait = lesForfaits.iterator(); iForfait.hasNext();)
 		{
-			Forfaits f = (Forfaits) iForfait.next();
-			forfaits.add(f);
+			Forfaits forfait = (Forfaits) iForfait.next();
+			forfaits.add(forfait);
 		}
 		
 		HibernateUtil.RealiserTransaction();

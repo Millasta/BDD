@@ -113,7 +113,7 @@ public class ControleClient {
 		Clients client = new Clients(idClient, ControlerForfait.Rechercher(typeForfait), typeCarte, numeroCarte, StringToDate(dateNaissance));
 		
 		ControlerForfait.Rechercher(typeForfait).getClientses().add(client);
-		
+		System.out.println("allo***********************************************************************************");
 		hbSession.save(utilisateur);
 		hbSession.save(client);
 		clients.add(client);

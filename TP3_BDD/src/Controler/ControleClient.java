@@ -40,13 +40,6 @@ public class ControleClient {
 	{
 		clients = new ArrayList<Clients>();
 		ControlerForfait = controlerForfait;
-		/*try {
-			Creer("CHIPPER", "Polo", "courriel@swag.com", "0123456", "21/04/1990", "motdepasse", "adresse rue ville", "Visa", 12345678, "31/12/2020", "DEBUTANT");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}*/
 		Initialiser();
 	}
 	

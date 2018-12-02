@@ -62,7 +62,7 @@ public class ControlePrincipal {
 		ControlerClient = new ControleClient(ControlerForfait);
 		ControlerEmploye = new ControleEmploye();
 		ControlerFilm = new ControleFilm(ControlerClient);
-		TesterCommunicationBDD();
+		//TesterCommunicationBDD();
 	}
 	
 	/**

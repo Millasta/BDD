@@ -31,7 +31,7 @@ public class ControleEmploye {
 	{
 		employes = new ArrayList<Employes>();
 		Initialiser();
-		CreerAdministrateur();
+		//CreerAdministrateur();
 	}
 	
 	/**

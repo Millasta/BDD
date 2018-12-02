@@ -66,6 +66,11 @@
                </font>
             </Button>
             <PasswordField fx:id="custPwdField" layoutX="327.0" layoutY="223.0" />
+            <Label fx:id="errCustConnectLabel" layoutX="288.0" layoutY="346.0" prefHeight="130.0" prefWidth="227.0" text="Courriel / Mot de passe invalide(s)" textAlignment="CENTER" textFill="RED" visible="false">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="empConnectPane" prefHeight="600.0" prefWidth="800.0" visible="false">

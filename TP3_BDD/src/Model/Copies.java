@@ -17,7 +17,7 @@ public class Copies implements java.io.Serializable {
 	private int numerocopie;
 	private Films films;
 	private Clients clients;
-	private Date dateLocation;
+	private Date datelocation;
 
 	/**
 	 * Constructeur par defaut
@@ -54,18 +54,18 @@ public class Copies implements java.io.Serializable {
 	 * Getter de la date de location
 	 * @return Date dateLocation
 	 */
-	public Date getDateLocation() 
+	public Date getDatelocation() 
 	{
-		return dateLocation;
+		return datelocation;
 	}
 
 	/**
 	 * Setter de la date de location
 	 * @param dateLocation : la nouvelle date de location
 	 */
-	public void setDateLocation(Date dateLocation) 
+	public void setDatelocation(Date datelocation) 
 	{
-		this.dateLocation = dateLocation;
+		this.datelocation = datelocation;
 	}
 
 	/**

@@ -11,7 +11,7 @@
             <generator class="assigned"/>
         </id>
         
-        <property generated="never" lazy="false" name="dateLocation" optimistic-lock="true" type="date" unique="false">
+        <property generated="never" lazy="false" name="datelocation" optimistic-lock="true" type="date" unique="false">
             <column length="7" name="DATELOCATION" not-null="true"/>
         </property>
         

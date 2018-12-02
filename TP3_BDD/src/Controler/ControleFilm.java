@@ -319,7 +319,7 @@ public class ControleFilm {
 			bdALouer.setClients(loueur);
 			
 			alALouer.setClients(loueur);
-			alALouer.setDateLocation(new SimpleDateFormat("yyyy-mm-dd").parse(LocalDate.now().toString()));
+			alALouer.setDatelocation(new SimpleDateFormat("yyyy-mm-dd").parse(LocalDate.now().toString()));
 			loueur.getCopieses().add(alALouer);
 			louable = true;
 		}
@@ -346,10 +346,10 @@ public class ControleFilm {
 		Copies bdARendre = (Copies) hbSession.createQuery("from Copies where Copies.NumeroCopie = :num").setParameter("num", alARendre.getNumerocopie()).list().iterator().next();
 		
 		bdARendre.setClients(null);
-		bdARendre.setDateLocation(null);
+		bdARendre.setDatelocation(null);
 		
 		alARendre.setClients(null);
-		alARendre.setDateLocation(null);
+		alARendre.setDatelocation(null);
 		
 		loueur.getCopieses().remove(alARendre);
 		

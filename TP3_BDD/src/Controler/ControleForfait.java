@@ -37,15 +37,23 @@ public class ControleForfait {
 	/**
 	 * Initialise la liste des forfaits avec la bdd
 	 */
+	@SuppressWarnings("unchecked")
 	private void Initialiser()
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		
-		List<?> lesForfaits = hbSession.createQuery("from Forfaits").list();
+		List<?> lesForfaits = hbSession.createQuery("select f.typeforfait, f.cout, f.locationmax, f.dureemax from Forfaits f").list();
 		
-		for(Iterator<?> iForfait = lesForfaits.iterator(); iForfait.hasNext();)
+		/*for(Iterator<?> iForfait = lesForfaits.iterator(); iForfait.hasNext();)
 		{
 			Forfaits f = (Forfaits) iForfait.next();
+			forfaits.add(f);
+		}*/
+		
+		for(Iterator<Object[]> iForfait = (Iterator<Object[]>) lesForfaits.iterator(); iForfait.hasNext();)
+		{
+			Object[] result = iForfait.next();
+			Forfaits f = new Forfaits((String)result[0], (double)result[1], (byte)result[2], (short)result[3]);
 			forfaits.add(f);
 		}
 		

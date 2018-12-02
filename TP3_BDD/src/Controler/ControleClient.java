@@ -15,6 +15,7 @@ import org.hibernate.Session;
 import Model.Clients;
 import Model.ClientsId;
 import Model.Copies;
+import Model.Forfaits;
 import Model.Utilisateurs;
 import Model.UtilisateursId;
 
@@ -39,6 +40,13 @@ public class ControleClient {
 	{
 		clients = new ArrayList<Clients>();
 		ControlerForfait = controlerForfait;
+		/*try {
+			Creer("CHIPPER", "Polo", "courriel@swag.com", "0123456", "21/04/1990", "motdepasse", "adresse rue ville", "Visa", 12345678, "31/12/2020", "DEBUTANT");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}*/
 		Initialiser();
 	}
 	
@@ -70,19 +78,28 @@ public class ControleClient {
 	/**
 	 * Initialise la liste des clients avec la bdd
 	 */
+	@SuppressWarnings("unchecked")
 	private void Initialiser()
 	{		
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		
-		Clients client = null;
-		List<?> lesClients = hbSession.createQuery("from Clients").list();
-		System.out.println("Nb clients : " + lesClients.size());
+		List<?> lesClients = hbSession.createQuery("select c.id.utilisateurs.id.nom, c.id.utilisateurs.id.prenom,"
+												+  "c.id.utilisateurs.courriel, c.id.utilisateurs.telephone, c.id.utilisateurs.naissance, c.id.utilisateurs.motdepasse, c.id.utilisateurs.adresse,"
+												+  "c.forfaits.typeforfait,"
+												+  "c.typecarte, c.numerocarte, c.dateexpiration from Clients c").list();
 		
-		for(Iterator<?> iClient = (Iterator<?>) lesClients.iterator(); iClient.hasNext();)
-		{
-			client = (Clients) iClient.next();
-			clients.add(client);
-			ControlerForfait.Rechercher(client.getForfaits().getTypeforfait()).getClientses().add(client);
+		System.out.println("Nb clients : " + lesClients.size()); 
+		
+		for(Iterator<Object[]> iClient = (Iterator<Object[]>) lesClients.iterator(); iClient.hasNext();){
+			Object[] result = iClient.next();
+			System.out.println("Client : " + result[0]);
+			UtilisateursId uId = new UtilisateursId((String)result[0], (String)result[1]);
+			Utilisateurs u = new Utilisateurs(uId, (String)result[2], (String)result[3], (Date)result[4], (String)result[5], (String)result[6]);
+			ClientsId cId = new ClientsId(u);
+			Forfaits f = ControlerForfait.Rechercher((String)result[7]);
+			Clients c = new Clients(cId, f, (String)result[8], (long)result[9], (Date)result[10]);
+			clients.add(c);
+			f.getClientses().add(c);
 		}
 		
 		HibernateUtil.RealiserTransaction();
@@ -222,7 +239,7 @@ public class ControleClient {
 		
 		if(client != null)
 		{
-			if(client.getId().getUtilisateurs().getMotdepasse().equals(Integer.toString(motDePass.hashCode())))
+			if(client.getId().getUtilisateurs().getMotdepasse().equals(motDePass))
 			{
 				connexion = true;
 			}
@@ -273,7 +290,7 @@ public class ControleClient {
 		{
 			tmpCopie = (Copies) iCopie.next();
 			
-			if(CalculerRetard(tmpCopie.getDateLocation(), Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())) > client.getForfaits().getDureemax())
+			if(CalculerRetard(tmpCopie.getDatelocation(), Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())) > client.getForfaits().getDureemax())
 			{
 				enRetard.add(tmpCopie);
 			}

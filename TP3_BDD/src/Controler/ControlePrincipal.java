@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -39,6 +40,8 @@ public class ControlePrincipal {
 	@FXML private PasswordField custPwdField;
 	@FXML private TextField courrielField;
 	@FXML private TextField matriculeField;
+	
+	@FXML private Label errCustConnectLabel;
 	
 	/**
 	 * Declaration des différents sous controlers
@@ -136,14 +139,14 @@ public class ControlePrincipal {
 			System.out.println("Customer " + courrielField.getText() + " try to connect..");
 			if(ControlerClient.SeConnecter(courrielField.getText(), custPwdField.getText())) {
 				System.out.println("Connexion réussie !");
+				errCustConnectLabel.setVisible(false);
 				custConnectPane.setVisible(false);
 				searchFilmPane.setVisible(true);
 			}
 			else {
 				System.out.println("Echec de la connexion !");
+				errCustConnectLabel.setVisible(true);
 			}
-			custConnectPane.setVisible(false);
-			searchFilmPane.setVisible(true);
 		}
 	}
 	

@@ -10,6 +10,10 @@ import java.util.Set;
 public class Films implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1694271170317920677L;
+	
+	/**
+	 * Attributs de la classe correspondant aux champs de la table
+	 */
 	private String titre;
 	private int annee;
 	private short duree;
@@ -17,117 +21,255 @@ public class Films implements java.io.Serializable {
 	private String resume;
 	private String genres;
 	private String paysproduction;
+	
+	/**
+	 * Liste des acteurs du film
+	 */
 	private Set<Object> rolesacteurses = new HashSet<Object>(0);
-	private Set<Object> personneses = new HashSet<Object>(0); // scenaristes
+	
+	/**
+	 * Liste des scenaristes du film
+	 */
+	private Set<Object> personneses = new HashSet<Object>(0);
+	
+	/**
+	 * Liste des copies du film
+	 */
 	private Set<Object> copieses = new HashSet<Object>(0);
 
-	public Films() {
+	/**
+	 * Constructeur par defaut
+	 */
+	public Films()
+	{
 	}
 
-	public Films(String titre, int annee, short duree, String langue, String resume, String genres,
-			String paysproduction) {
+	/**
+	 * Construit un films avec ses attributs
+	 * @param titre : le titre du film
+	 * @param annee : l'anne de production du film
+	 * @param duree : la duree du film
+	 * @param langue : la langue original du film
+	 * @param resume : le resume du film
+	 * @param genres : les genres du film
+	 * @param paysProduction : le pays de production du film
+	 */
+	public Films(String titre, int annee, short duree, String langue, String resume, String genres, String paysProduction)
+	{
 		this.titre = titre;
 		this.annee = annee;
 		this.duree = duree;
 		this.langue = langue;
 		this.resume = resume;
 		this.genres = genres;
-		this.paysproduction = paysproduction;
+		this.paysproduction = paysProduction;
 	}
 
-	public Films(String titre, int annee, short duree, String langue, String resume, String genres,
-			String paysproduction, Set<Object> rolesacteurses, Set<Object> personneses, Set<Object> copieses) {
+	/**
+	 * Construit un films avec ses attributs, ses acteurs, ses scenariste et ses copies
+	 * @param titre : le titre du film
+	 * @param annee : l'anne de production du film
+	 * @param duree : la duree du film
+	 * @param langue : la langue original du film
+	 * @param resume : le resume du film
+	 * @param genres : les genres du film
+	 * @param paysProduction : le pays de production du film
+	 * @param rolesActeurs : les acteurs jouant dans le film
+	 * @param personnes : les scenaristes du film
+	 * @param copies : les copies du film
+	 */
+	public Films(String titre, int annee, short duree, String langue, String resume, String genres, String paysProduction, Set<Object> rolesActeurs, Set<Object> personnes, Set<Object> copies)
+	{
 		this.titre = titre;
 		this.annee = annee;
 		this.duree = duree;
 		this.langue = langue;
 		this.resume = resume;
 		this.genres = genres;
-		this.paysproduction = paysproduction;
-		this.rolesacteurses = rolesacteurses;
-		this.personneses = personneses;
-		this.copieses = copieses;
+		this.paysproduction = paysProduction;
+		this.rolesacteurses = rolesActeurs;
+		this.personneses = personnes;
+		this.copieses = copies;
 	}
 
-
-	public String getTitre() {
-		return this.titre;
+	/**
+	 * Getter du titre
+	 * @return String titre
+	 */
+	public String getTitre()
+	{
+		return titre;
 	}
 
-	public void setTitre(String titre) {
+	/**
+	 * Setter du titre
+	 * @param titre : le nouveau titre
+	 */
+	public void setTitre(String titre)
+	{
 		this.titre = titre;
 	}
 
-	public int getAnnee() {
-		return this.annee;
+	/**
+	 * Getter de l'annee
+	 * @return int annee
+	 */
+	public int getAnnee()
+	{
+		return annee;
 	}
 
-	public void setAnnee(int annee) {
+	/**
+	 * Setter de l'annee
+	 * @param annee : la nouvelle annee
+	 */
+	public void setAnnee(int annee)
+	{
 		this.annee = annee;
 	}
 
-	public short getDuree() {
-		return this.duree;
+	/**
+	 * Getter de la duree
+	 * @return short duree
+	 */
+	public short getDuree()
+	{
+		return duree;
 	}
 
-	public void setDuree(short duree) {
+	/**
+	 * Setter de la duree
+	 * @param duree : la nouvelle duree
+	 */
+	public void setDuree(short duree)
+	{
 		this.duree = duree;
 	}
 
-	public String getLangue() {
-		return this.langue;
+	/**
+	 * Getter de la langue original
+	 * @return String langue
+	 */
+	public String getLangue()
+	{
+		return langue;
 	}
 
-	public void setLangue(String langue) {
+	/**
+	 * Setter de la langue original
+	 * @param langue : la nouvelle langue
+	 */
+	public void setLangue(String langue)
+	{
 		this.langue = langue;
 	}
 
-	public String getResume() {
-		return this.resume;
+	/**
+	 * Getter du resume
+	 * @return String resume
+	 */
+	public String getResume() 
+	{
+		return resume;
 	}
 
-	public void setResume(String resume) {
+	/**
+	 * Setter du resume
+	 * @param resume : le nouveau resume
+	 */
+	public void setResume(String resume)
+	{
 		this.resume = resume;
 	}
 
-	public String getGenres() {
-		return this.genres;
+	/**
+	 * Getter des genres
+	 * @return String genres
+	 */
+	public String getGenres()
+	{
+		return genres;
 	}
 
-	public void setGenres(String genres) {
+	/**
+	 * Setter des genres
+	 * @param genres : les nouveaux genres
+	 */
+	public void setGenres(String genres) 
+	{
 		this.genres = genres;
 	}
 
-	public String getPaysproduction() {
-		return this.paysproduction;
+	/**
+	 * Getter des pays de production
+	 * @return String paysproduction
+	 */
+	public String getPaysproduction()
+	{
+		return paysproduction;
 	}
 
-	public void setPaysproduction(String paysproduction) {
-		this.paysproduction = paysproduction;
+	/**
+	 * Setter des pays de production
+	 * @param paysproduction : les nouveaux pays de production
+	 */
+	public void setPaysproduction(String paysProduction)
+	{
+		this.paysproduction = paysProduction;
 	}
 
-	public Set<Object> getRolesacteurses() {
-		return this.rolesacteurses;
+	/**
+	 * Getter des acteurs
+	 * @return Set<Object> rolesacteurses
+	 */
+	public Set<Object> getRolesacteurses() 
+	{
+		return rolesacteurses;
 	}
 
-	public void setRolesacteurses(Set<Object> rolesacteurses) {
-		this.rolesacteurses = rolesacteurses;
+	/**
+	 * Setter des acteurs
+	 * @param rolesacteurs : les nouveaux acteurs
+	 */
+	public void setRolesacteurses(Set<Object> rolesActeurs)
+	{
+		this.rolesacteurses = rolesActeurs;
 	}
 
-	public Set<Object> getPersonneses() {
-		return this.personneses;
+	/**
+	 * Getter des scenaristes
+	 * @return Set<Object> personneses
+	 */
+	public Set<Object> getPersonneses()
+	{
+		return personneses;
 	}
 
-	public void setPersonneses(Set<Object> personneses) {
-		this.personneses = personneses;
+	/**
+	 * Setter des scenaristes
+	 * @param personnes : les nouveaux scenaristes
+	 */
+	public void setPersonneses(Set<Object> personnes) 
+	{
+		this.personneses = personnes;
 	}
 
-	public Set<Object> getCopieses() {
-		return this.copieses;
+	/**
+	 * Getter des copies
+	 * @return Set<Object> copieses
+	 */
+	public Set<Object> getCopieses()
+	{
+		return copieses;
 	}
 
-	public void setCopieses(Set<Object> copieses) {
-		this.copieses = copieses;
+	/**
+	 * Setter des copies
+	 * @param copies : les nouvelles copies
+	 */
+	public void setCopieses(Set<Object> copies) 
+	{
+		this.copieses = copies;
 	}
 
 }

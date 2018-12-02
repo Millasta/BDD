@@ -3,6 +3,7 @@ package Controler;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -299,8 +300,9 @@ public class ControleFilm {
 	 * @param titre : le titre du film demande
 	 * @return boolean louable
 	 * @throws SQLException
+	 * @throws ParseException 
 	 */
-	public boolean Louer(String nom, String prenom, String titre) throws SQLException
+	public boolean Louer(String nom, String prenom, String titre) throws SQLException, ParseException
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		
@@ -317,6 +319,7 @@ public class ControleFilm {
 			bdALouer.setClients(loueur);
 			
 			alALouer.setClients(loueur);
+			alALouer.setDateLocation(new SimpleDateFormat("yyyy-mm-dd").parse(LocalDate.now().toString()));
 			loueur.getCopieses().add(alALouer);
 			louable = true;
 		}
@@ -343,8 +346,11 @@ public class ControleFilm {
 		Copies bdARendre = (Copies) hbSession.createQuery("from Copies where Copies.NumeroCopie = :num").setParameter("num", alARendre.getNumerocopie()).list().iterator().next();
 		
 		bdARendre.setClients(null);
+		bdARendre.setDateLocation(null);
 		
 		alARendre.setClients(null);
+		alARendre.setDateLocation(null);
+		
 		loueur.getCopieses().remove(alARendre);
 		
 		HibernateUtil.RealiserTransaction();

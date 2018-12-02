@@ -6,53 +6,96 @@ package Model;
  */
 public class UtilisateursId implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5815487541207129370L;
+	
+	/**
+	 * Attributs de la classe correspondant aux champs de la table
+	 */
 	private String nom;
 	private String prenom;
 
-	public UtilisateursId() {
+	/**
+	 * Constructeur par defaut
+	 */
+	public UtilisateursId() 
+	{
 	}
 
-	public UtilisateursId(String nom, String prenom) {
+	/**
+	 * Construit l'id d'un utilisateur avec ses attributs
+	 * @param nom : le nom de l'utilisateur
+	 * @param prenom : le prenom de l'utilisateur
+	 */
+	public UtilisateursId(String nom, String prenom)
+	{
 		this.nom = nom;
 		this.prenom = prenom;
 	}
 
-	public String getNom() {
-		return this.nom;
+	/**
+	 * Getter du nom
+	 * @return String nom
+	 */
+	public String getNom() 
+	{
+		return nom;
 	}
 
-	public void setNom(String nom) {
+	/**
+	 * Setter du nom
+	 * @param nom : le nouveau nom
+	 */
+	public void setNom(String nom)
+	{
 		this.nom = nom;
 	}
 
-	public String getPrenom() {
-		return this.prenom;
+	/**
+	 * Getter du prenom
+	 * @return String prenom
+	 */
+	public String getPrenom()
+	{
+		return prenom;
 	}
 
-	public void setPrenom(String prenom) {
+	/**
+	 * Setter du prenom
+	 * @param prenom
+	 */
+	public void setPrenom(String prenom) 
+	{
 		this.prenom = prenom;
 	}
 
-	public boolean equals(Object other) {
-		if ((this == other))
+	/**
+	 * Verifie si l'acteur existe deja
+	 */
+	public boolean equals(Object other)
+	{
+		if (this == other)
+		{
 			return true;
-		if ((other == null))
+		}
+		if (other == null)
+		{
 			return false;
+		}
 		if (!(other instanceof UtilisateursId))
+		{
 			return false;
+		}
+		
 		UtilisateursId castOther = (UtilisateursId) other;
 
-		return ((this.getNom() == castOther.getNom())
-				|| (this.getNom() != null && castOther.getNom() != null && this.getNom().equals(castOther.getNom())))
-				&& ((this.getPrenom() == castOther.getPrenom()) || (this.getPrenom() != null
-						&& castOther.getPrenom() != null && this.getPrenom().equals(castOther.getPrenom())));
+		return ((this.getNom() == castOther.getNom()) || (this.getNom() != null && castOther.getNom() != null && this.getNom().equals(castOther.getNom()))) && ((this.getPrenom() == castOther.getPrenom()) || (this.getPrenom() != null && castOther.getPrenom() != null && this.getPrenom().equals(castOther.getPrenom())));
 	}
 
-	public int hashCode() {
+	/**
+	 * Retourne l'acteur hache
+	 */
+	public int hashCode()
+	{
 		int result = 17;
 
 		result = 37 * result + (getNom() == null ? 0 : this.getNom().hashCode());

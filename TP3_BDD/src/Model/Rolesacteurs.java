@@ -6,35 +6,66 @@ package Model;
  */
 public class Rolesacteurs implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1097276659634104426L;
+	
+	/**
+	 * Attributs de la classe correspondant aux champs de la table
+	 */
 	private RolesacteursId id;
 	private String nompersonnage;
 
-	public Rolesacteurs() {
+	/**
+	 * Constructeur par defaut
+	 */
+	public Rolesacteurs() 
+	{
 	}
 
-	public Rolesacteurs(RolesacteursId id, String nompersonnage) {
+	/**
+	 * Construit un acteurs avec ses attributs
+	 * @param id : l'id de la personne correspondante
+	 * @param nomPersonnage : le nom du personnage dans le film
+	 */
+	public Rolesacteurs(RolesacteursId id, String nomPersonnage)
+	{
 		this.id = id;
-		this.nompersonnage = nompersonnage;
+		this.nompersonnage = nomPersonnage;
 	}
 
-	public RolesacteursId getId() {
-		return this.id;
+	/**
+	 * Getter de l'id
+	 * @return RolesacteursId id
+	 */
+	public RolesacteursId getId() 
+	{
+		return id;
 	}
 
-	public void setId(RolesacteursId id) {
+	/**
+	 * Setter de l'id
+	 * @param id : le nouvel id
+	 */
+	public void setId(RolesacteursId id) 
+	{
 		this.id = id;
 	}
 
-	public String getNompersonnage() {
-		return this.nompersonnage;
+	/**
+	 * Getter du nom de personnage
+	 * @return String nompersonnage
+	 */
+	public String getNompersonnage() 
+	{
+		return nompersonnage;
 	}
 
-	public void setNompersonnage(String nompersonnage) {
-		this.nompersonnage = nompersonnage;
+	/**
+	 * Setter du nom de personnage
+	 * @param nomPersonnage
+	 */
+	public void setNompersonnage(String nomPersonnage) 
+	{
+		this.nompersonnage = nomPersonnage;
 	}
 
 }

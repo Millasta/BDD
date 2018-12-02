@@ -10,107 +10,219 @@ import java.util.Set;
  */
 public class Utilisateurs implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4708408073187867370L;
+	
+	/**
+	 * Attributs de la classe correspondant aux champs de la table
+	 */
 	private UtilisateursId id;
 	private String courriel;
 	private String telephone;
 	private Date naissance;
 	private String motdepasse;
 	private String adresse;
+	
+	/**
+	 * Liste des employes
+	 */
 	private Set<Object> employeses = new HashSet<Object>(0);
+	
+	/**
+	 * Le client
+	 */
 	private Clients clients;
 
-	public Utilisateurs() {
+	/**
+	 * Constructeur par defaut
+	 */
+	public Utilisateurs()
+	{
 	}
 
-	public Utilisateurs(UtilisateursId id, String courriel, String telephone, Date naissance, String motdepasse,
-			String adresse) {
+	/**
+	 * Construit un utilisateur avec ses attributs
+	 * @param id : l'id de l'utilisateur
+	 * @param courriel : le courriel de l'utilisateur
+	 * @param telephone : le telephone de l'utilisateur
+	 * @param naissance : la date de naissance de l'utilisateur
+	 * @param motDePasse : le mot de passe de l'utilisateur
+	 * @param adresse : l'adresse de l'utilisateur
+	 */
+	public Utilisateurs(UtilisateursId id, String courriel, String telephone, Date naissance, String motDePasse, String adresse)
+	{
 		this.id = id;
 		this.courriel = courriel;
 		this.telephone = telephone;
 		this.naissance = naissance;
-		this.motdepasse = motdepasse;
+		this.motdepasse = motDePasse;
 		this.adresse = adresse;
-		System.out.println("Nouvel utilisateur : " + id.getNom() + " " + id.getPrenom());
 	}
 
-	public Utilisateurs(UtilisateursId id, String courriel, String telephone, Date naissance, String motdepasse,
-			String adresse, Set<Object> employeses, Clients clients) {
+	/**
+	 * Construit un utilisateur avec ses attributs
+	 * @param id : l'id de l'utilisateur
+	 * @param courriel : le courriel de l'utilisateur
+	 * @param telephone : le telephone de l'utilisateur
+	 * @param naissance : la date de naissance de l'utilisateur
+	 * @param motDePasse : le mot de passe de l'utilisateur
+	 * @param adresse : l'adresse de l'utilisateur
+	 * @param employes : les employes associes
+	 * @param client : le client associes
+	 */
+	public Utilisateurs(UtilisateursId id, String courriel, String telephone, Date naissance, String motDePasse, String adresse, Set<Object> employes, Clients client)
+	{
 		this.id = id;
 		this.courriel = courriel;
 		this.telephone = telephone;
 		this.naissance = naissance;
-		this.motdepasse = motdepasse;
+		this.motdepasse = motDePasse;
 		this.adresse = adresse;
-		this.employeses = employeses;
-		this.clients = clients;
+		this.employeses = employes;
+		this.clients = client;
 	}
 
-	public UtilisateursId getId() {
-		return this.id;
+	/**
+	 * Getter de l'id
+	 * @return UtilisateursId id
+	 */
+	public UtilisateursId getId()
+	{
+		return id;
 	}
 
-	public void setId(UtilisateursId id) {
+	/**
+	 * Setter de l'id
+	 * @param id : le nouvel id
+	 */
+	public void setId(UtilisateursId id)
+	{
 		this.id = id;
 	}
 
-	public String getCourriel() {
-		return this.courriel;
+	/**
+	 * Getter du courriel
+	 * @return String courriel
+	 */
+	public String getCourriel()
+	{
+		return courriel;
 	}
 
-	public void setCourriel(String courriel) {
+	/**
+	 * Setter du courriel
+	 * @param courriel : le nouveau courriel
+	 */
+	public void setCourriel(String courriel)
+	{
 		this.courriel = courriel;
 	}
 
-	public String getTelephone() {
-		return this.telephone;
+	/**
+	 * Getter du numero de telephone
+	 * @return String telephone
+	 */
+	public String getTelephone() 
+	{
+		return telephone;
 	}
 
-	public void setTelephone(String telephone) {
+	/**
+	 * Setter du numero de telephone
+	 * @param telephone : le nouveau numero
+	 */
+	public void setTelephone(String telephone)
+	{
 		this.telephone = telephone;
 	}
 
-	public Date getNaissance() {
-		return this.naissance;
+	/**
+	 * Getter de la date de naissance
+	 * @return Date naissance
+	 */
+	public Date getNaissance()
+	{
+		return naissance;
 	}
 
-	public void setNaissance(Date naissance) {
+	/**
+	 * Setter de la date de naissance
+	 * @param naissance : la nouvelle date
+	 */
+	public void setNaissance(Date naissance)
+	{
 		this.naissance = naissance;
 	}
 
-	public String getMotdepasse() {
-		return this.motdepasse;
+	/**
+	 * Getter du mot de passe
+	 * @return String motdepasse
+	 */
+	public String getMotdepasse()
+	{
+		return motdepasse;
 	}
 
-	public void setMotdepasse(String motdepasse) {
-		this.motdepasse = motdepasse;
+	/**
+	 * Setter du mot de passe
+	 * @param motDePasse
+	 */
+	public void setMotdepasse(String motDePasse) 
+	{
+		this.motdepasse = motDePasse;
 	}
 
-	public String getAdresse() {
-		return this.adresse;
+	/**
+	 * Getter de l'adresse
+	 * @return String adresse
+	 */
+	public String getAdresse()
+	{
+		return adresse;
 	}
 
-	public void setAdresse(String adresse) {
+	/**
+	 * Setter de l'adresse
+	 * @param adresse : le nouvelle adresse
+	 */
+	public void setAdresse(String adresse)
+	{
 		this.adresse = adresse;
 	}
 
-	public Set<Object> getEmployeses() {
-		return this.employeses;
+	/**
+	 * Getter des employes
+	 * @return Set<Object> employeses
+	 */
+	public Set<Object> getEmployeses()
+	{
+		return employeses;
 	}
 
-	public void setEmployeses(Set<Object> employeses) {
-		this.employeses = employeses;
+	/**
+	 * Setter des employes
+	 * @param employes : les nouveaux employes
+	 */
+	public void setEmployeses(Set<Object> employes) 
+	{
+		this.employeses = employes;
 	}
 
-	public Clients getClients() {
-		return this.clients;
+	/**
+	 * Getter du client
+	 * @return Clients clients
+	 */
+	public Clients getClients()
+	{
+		return clients;
 	}
 
-	public void setClients(Clients clients) {
-		this.clients = clients;
+	/**
+	 * Setter du client
+	 * @param client : le nouveau client
+	 */
+	public void setClients(Clients client)
+	{
+		this.clients = client;
 	}
 
 }

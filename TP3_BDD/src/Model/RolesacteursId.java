@@ -6,53 +6,96 @@ package Model;
  */
 public class RolesacteursId implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1755631568107139769L;
+	
+	/**
+	 * Attributs de la classe correspondant aux champs de la table
+	 */
 	private Personnes personnes;
 	private Films films;
 
-	public RolesacteursId() {
+	/**
+	 * Constructeur par defaut
+	 */
+	public RolesacteursId() 
+	{
 	}
 
-	public RolesacteursId(Personnes personnes, Films films) {
-		this.personnes = personnes;
-		this.films = films;
+	/**
+	 * Construit l'id d'un acteur avec la personne et le film correspondants
+	 * @param personne : la personne correspondante
+	 * @param film : le film correspondant
+	 */
+	public RolesacteursId(Personnes personne, Films film)
+	{
+		this.personnes = personne;
+		this.films = film;
 	}
 
-	public Personnes getPersonnes() {
-		return this.personnes;
+	/**
+	 * Getter de la personne
+	 * @return Personnes personnes
+	 */
+	public Personnes getPersonnes()
+	{
+		return personnes;
 	}
 
-	public void setPersonnes(Personnes personnes) {
-		this.personnes = personnes;
+	/**
+	 * Setter de la personne
+	 * @param personne : la nouvelle personne
+	 */
+	public void setPersonnes(Personnes personne) 
+	{
+		this.personnes = personne;
 	}
 
-	public Films getFilms() {
-		return this.films;
+	/**
+	 * Getter du film
+	 * @return Films films
+	 */
+	public Films getFilms()
+	{
+		return films;
 	}
 
-	public void setFilms(Films films) {
-		this.films = films;
+	/**
+	 * Setter du film
+	 * @param film : le nouveau film
+	 */
+	public void setFilms(Films film) 
+	{
+		this.films = film;
 	}
 
-	public boolean equals(Object other) {
-		if ((this == other))
+	/**
+	 * Verifie si l'acteur existe deja
+	 */
+	public boolean equals(Object other)
+	{
+		if (this == other)
+		{
 			return true;
-		if ((other == null))
+		}
+		if (other == null)
+		{
 			return false;
+		}
 		if (!(other instanceof RolesacteursId))
+		{
 			return false;
+		}
+		
 		RolesacteursId castOther = (RolesacteursId) other;
 
-		return ((this.getPersonnes() == castOther.getPersonnes()) || (this.getPersonnes() != null
-				&& castOther.getPersonnes() != null && this.getPersonnes().equals(castOther.getPersonnes())))
-				&& ((this.getFilms() == castOther.getFilms()) || (this.getFilms() != null
-						&& castOther.getFilms() != null && this.getFilms().equals(castOther.getFilms())));
+		return ((this.getPersonnes() == castOther.getPersonnes()) || (this.getPersonnes() != null && castOther.getPersonnes() != null && this.getPersonnes().equals(castOther.getPersonnes()))) && ((this.getFilms() == castOther.getFilms()) || (this.getFilms() != null && castOther.getFilms() != null && this.getFilms().equals(castOther.getFilms())));
 	}
 
-	public int hashCode() {
+	/**
+	 * Retourne l'acteur hache
+	 */
+	public int hashCode()
+	{
 		int result = 17;
 
 		result = 37 * result + (getPersonnes() == null ? 0 : this.getPersonnes().hashCode());

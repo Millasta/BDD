@@ -9,59 +9,117 @@ import java.util.Date;
  */
 public class Copies implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4582693674896808117L;
+	
+	/**
+	 * Attributs de la classe correspondant aux champs de la table
+	 */
 	private int numerocopie;
 	private Films films;
 	private Clients clients;
 	private Date dateLocation;
 
-	public Copies() {
+	/**
+	 * Constructeur par defaut
+	 */
+	public Copies() 
+	{
 	}
 
-	public Copies(int numerocopie, Films films) {
-		this.numerocopie = numerocopie;
-		this.films = films;
+	/**
+	 * Construit une copie avec son numero et le film correspondant
+	 * @param numeroCopie : le numero de la copie
+	 * @param films : le film correspondant
+	 */
+	public Copies(int numeroCopie, Films film)
+	{
+		this.numerocopie = numeroCopie;
+		this.films = film;
 	}
 
-	public Copies(int numerocopie, Films films, Clients clients) {
-		this.numerocopie = numerocopie;
-		this.films = films;
-		this.clients = clients;
+	/**
+	 * Construit une copie avec son numero et le film correspondant et son locataire
+	* @param numeroCopie : le numero de la copie
+	 * @param films : le film correspondant
+	 * @param client : le locataire
+	 */
+	public Copies(int numeroCopie, Films film, Clients client)
+	{
+		this.numerocopie = numeroCopie;
+		this.films = film;
+		this.clients = client;
 	}
 	
-	public Date getDateLocation() {
+	/**
+	 * Getter de la date de location
+	 * @return Date dateLocation
+	 */
+	public Date getDateLocation() 
+	{
 		return dateLocation;
 	}
 
-	public void setDateLocation(Date dateLocation) {
+	/**
+	 * Setter de la date de location
+	 * @param dateLocation : la nouvelle date de location
+	 */
+	public void setDateLocation(Date dateLocation) 
+	{
 		this.dateLocation = dateLocation;
 	}
 
-	public int getNumerocopie() {
-		return this.numerocopie;
+	/**
+	 * Getter du numero de la copie
+	 * @return int numerocopie
+	 */
+	public int getNumerocopie()
+	{
+		return numerocopie;
 	}
 
-	public void setNumerocopie(int numerocopie) {
-		this.numerocopie = numerocopie;
+	/**
+	 * Setter du numero de la copie
+	 * @param numeroCopie : le nouveau numero de la copie
+	 */
+	public void setNumerocopie(int numeroCopie)
+	{
+		this.numerocopie = numeroCopie;
 	}
 
-	public Films getFilms() {
-		return this.films;
+	/**
+	 * Getter du film correspondant
+	 * @return Films films
+	 */
+	public Films getFilms()
+	{
+		return films;
 	}
 
-	public void setFilms(Films films) {
-		this.films = films;
+	/**
+	 * Setter du film
+	 * @param film : le nouveau film
+	 */
+	public void setFilms(Films film) 
+	{
+		this.films = film;
 	}
 
-	public Clients getClients() {
+	/**
+	 * Getter du locataire
+	 * @return Clients clients
+	 */
+	public Clients getClients() 
+	{
 		return this.clients;
 	}
 
-	public void setClients(Clients clients) {
-		this.clients = clients;
+	/**
+	 * Setter du client
+	 * @param client : le nouveau client
+	 */
+	public void setClients(Clients client)
+	{
+		this.clients = client;
 	}
 
 }

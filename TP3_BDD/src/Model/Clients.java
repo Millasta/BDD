@@ -11,80 +11,170 @@ import java.util.Set;
 public class Clients implements java.io.Serializable {
 
 	private static final long serialVersionUID = 172434504324018254L;
+	
+	/**
+	 * Attributs de la classe correspondant aux champs de la table
+	 */
 	private ClientsId id;
 	private Forfaits forfaits;
 	private String typecarte;
 	private long numerocarte;
 	private Date dateexpiration;
+	
+	/**
+	 * Liste des copies loue par le client
+	 */
 	private Set<Object> copieses = new HashSet<Object>(0);
 
-	public Clients() {
+	/**
+	 * Constructeur par defaut
+	 */
+	public Clients() 
+	{
 	}
 
-	public Clients(ClientsId id, Forfaits forfaits, String typecarte, long numerocarte, Date dateexpiration) {
+	/**
+	 * Construit un client avec tous ses attributs
+	 * @param id : l'id de l'utilisateur correspondant
+	 * @param forfaits : le forfait du client
+	 * @param typeCarte : le type de carte du client
+	 * @param numeroCarte : le numero de carte du client
+	 * @param dateExpiration : la date d'expiration de la carte du client
+	 */
+	public Clients(ClientsId id, Forfaits forfaits, String typeCarte, long numeroCarte, Date dateExpiration)
+	{
 		this.id = id;
 		this.forfaits = forfaits;
-		this.typecarte = typecarte;
-		this.numerocarte = numerocarte;
-		this.dateexpiration = dateexpiration;
+		this.typecarte = typeCarte;
+		this.numerocarte = numeroCarte;
+		this.dateexpiration = dateExpiration;
 	}
 
-	public Clients(ClientsId id, Forfaits forfaits, String typecarte, long numerocarte, Date dateexpiration,
-			Set<Object> copieses) {
+	/**
+	 * Construit un client avec tous ses attributs et les copies loue
+	 * @param id : l'id de l'utilisateur correspondant
+	 * @param forfaits : le forfait du client
+	 * @param typeCarte : le type de carte du client
+	 * @param numeroCarte : le numero de carte du client
+	 * @param dateExpiration : la date d'expiration de la carte du client
+	 * @param copieses : les copies loue par le client
+	 */
+	public Clients(ClientsId id, Forfaits forfaits, String typeCarte, long numeroCarte, Date dateExpiration, Set<Object> copies)
+	{
 		this.id = id;
 		this.forfaits = forfaits;
-		this.typecarte = typecarte;
-		this.numerocarte = numerocarte;
-		this.dateexpiration = dateexpiration;
-		this.copieses = copieses;
+		this.typecarte = typeCarte;
+		this.numerocarte = numeroCarte;
+		this.dateexpiration = dateExpiration;
+		this.copieses = copies;
 	}
 
-	public ClientsId getId() {
-		return this.id;
+	/**
+	 * Getter de l'id
+	 * @return ClientsId id
+	 */
+	public ClientsId getId()
+	{
+		return id;
 	}
 
-	public void setId(ClientsId id) {
+	/**
+	 * Setter de l'id
+	 * @param id : le nouvel id
+	 */
+	public void setId(ClientsId id)
+	{
 		this.id = id;
 	}
 
-	public Forfaits getForfaits() {
-		return this.forfaits;
+	/**
+	 * Getter du forfait
+	 * @return Forfaits forfaits
+	 */
+	public Forfaits getForfaits() 
+	{
+		return forfaits;
 	}
 
-	public void setForfaits(Forfaits forfaits) {
+	/**
+	 * Setter du forfait
+	 * @param forfaits : le nouveau forfait
+	 */
+	public void setForfaits(Forfaits forfaits)
+	{
 		this.forfaits = forfaits;
 	}
 
-	public String getTypecarte() {
-		return this.typecarte;
+	/**
+	 * Getter du type de carte
+	 * @return String typecarte
+	 */
+	public String getTypecarte() 
+	{
+		return typecarte;
 	}
 
-	public void setTypecarte(String typecarte) {
-		this.typecarte = typecarte;
+	/**
+	 * Setter du type de carte
+	 * @param typeCarte : le nouveau type de carte
+	 */
+	public void setTypecarte(String typeCarte)
+	{
+		this.typecarte = typeCarte;
 	}
 
-	public long getNumerocarte() {
-		return this.numerocarte;
+	/**
+	 * Getter du numero de carte
+	 * @return long numerocarte
+	 */
+	public long getNumerocarte() 
+	{
+		return numerocarte;
 	}
 
-	public void setNumerocarte(long numerocarte) {
-		this.numerocarte = numerocarte;
+	/**
+	 * Setter du numero de carte
+	 * @param numeroCarte : le nouveau numero de carte
+	 */
+	public void setNumerocarte(long numeroCarte) 
+	{
+		this.numerocarte = numeroCarte;
 	}
 
-	public Date getDateexpiration() {
-		return this.dateexpiration;
+	/**
+	 * Getter de la date d'expiration
+	 * @return Date dateexpiration
+	 */
+	public Date getDateexpiration() 
+	{
+		return dateexpiration;
 	}
 
-	public void setDateexpiration(Date dateexpiration) {
-		this.dateexpiration = dateexpiration;
+	/**
+	 * Setter de la date d'expiration
+	 * @param dateExpiration : la nouvelle date d'expiration
+	 */
+	public void setDateexpiration(Date dateExpiration) 
+	{
+		this.dateexpiration = dateExpiration;
 	}
 
-	public Set<Object> getCopieses() {
-		return this.copieses;
+	/**
+	 * Getter des copies
+	 * @return Set<Object> copieses
+	 */
+	public Set<Object> getCopieses()
+	{
+		return copieses;
 	}
 
-	public void setCopieses(Set<Object> copieses) {
-		this.copieses = copieses;
+	/**
+	 * Setter des copies
+	 * @param copieses : les nouvelles copies loue
+	 */
+	public void setCopieses(Set<Object> copies)
+	{
+		this.copieses = copies;
 	}
 
 }

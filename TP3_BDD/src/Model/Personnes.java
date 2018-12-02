@@ -10,83 +10,173 @@ import java.util.Set;
  */
 public class Personnes implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5505318989705768740L;
+	
+	/**
+	 * Attributs de la classe correspondant aux champs de la table
+	 */
 	private PersonnesId id;
 	private Date naissance;
 	private String lieunaissance;
 	private String biographie;
+	
+	/**
+	 * Liste des acteurs
+	 */
 	private Set<Object> rolesacteurses = new HashSet<Object>(0);
+	
+	/**
+	 * Liste des films scenarise
+	 */
 	private Set<Object> filmses = new HashSet<Object>(0);
 
-	public Personnes() {
+	/**
+	 * Constructeur par defaut
+	 */
+	public Personnes()
+	{
 	}
 
-	public Personnes(PersonnesId id, Date naissance, String lieunaissance, String biographie) {
+	/**
+	 * Construit une personne avec ses attributs
+	 * @param id : l'id de la personne
+	 * @param naissance : la date de naissance de la parsonne
+	 * @param lieuNaissance : le lieu de naissance de la parsonne
+	 * @param biographie : la biographie de la parsonne
+	 */
+	public Personnes(PersonnesId id, Date naissance, String lieuNaissance, String biographie)
+	{
 		this.id = id;
 		this.naissance = naissance;
-		this.lieunaissance = lieunaissance;
+		this.lieunaissance = lieuNaissance;
 		this.biographie = biographie;
 	}
 
-	public Personnes(PersonnesId id, Date naissance, String lieunaissance, String biographie, Set<Object> rolesacteurses,
-			Set<Object> filmses) {
+	/**
+	 * Construit une personne avec ses attributs
+	 * @param id : l'id de la personne
+	 * @param naissance : la date de naissance de la parsonne
+	 * @param lieuNaissance : le lieu de naissance de la parsonne
+	 * @param biographie : la biographie de la parsonne
+	 * @param rolesacteurs : les roles associe à cette personne
+	 * @param films : les films scenarise par cette personne
+	 */
+	public Personnes(PersonnesId id, Date naissance, String lieuNaissance, String biographie, Set<Object> rolesacteurs, Set<Object> films) 
+	{
 		this.id = id;
 		this.naissance = naissance;
-		this.lieunaissance = lieunaissance;
+		this.lieunaissance = lieuNaissance;
 		this.biographie = biographie;
-		this.rolesacteurses = rolesacteurses;
-		this.filmses = filmses;
+		this.rolesacteurses = rolesacteurs;
+		this.filmses = films;
 	}
 
-	public PersonnesId getId() {
-		return this.id;
+	/**
+	 * Getter de l'id de la personne
+	 * @return PersonnesId id
+	 */
+	public PersonnesId getId()
+	{
+		return id;
 	}
 
-	public void setId(PersonnesId id) {
+	/**
+	 * Setter de l'id de la personne
+	 * @param id : le nouvel id
+	 */
+	public void setId(PersonnesId id) 
+	{
 		this.id = id;
 	}
 
-	public Date getNaissance() {
-		return this.naissance;
+	/**
+	 * Getter de la date de naissance
+	 * @return Date naissance
+	 */
+	public Date getNaissance()
+	{
+		return naissance;
 	}
 
-	public void setNaissance(Date naissance) {
+	/**
+	 * Setter de la date de naissance
+	 * @param naissance : la nouvelle date de naissance
+	 */
+	public void setNaissance(Date naissance)
+	{
 		this.naissance = naissance;
 	}
 
-	public String getLieunaissance() {
-		return this.lieunaissance;
+	/**
+	 * Getter du lieu de naissance
+	 * @return : String lieunaissance
+	 */
+	public String getLieunaissance()
+	{
+		return lieunaissance;
 	}
 
-	public void setLieunaissance(String lieunaissance) {
-		this.lieunaissance = lieunaissance;
+	/**
+	 * Setter du lieu de naissance
+	 * @param lieuNaissance : le nouveau lieu de naissance
+	 */
+	public void setLieunaissance(String lieuNaissance)
+	{
+		this.lieunaissance = lieuNaissance;
 	}
 
-	public String getBiographie() {
-		return this.biographie;
+	/**
+	 * Getter de la biographie
+	 * @return String biographie
+	 */
+	public String getBiographie()
+	{
+		return biographie;
 	}
 
-	public void setBiographie(String biographie) {
+	/**
+	 * Setter de la biographie
+	 * @param biographie : la nouvelle biographie
+	 */
+	public void setBiographie(String biographie)
+	{
 		this.biographie = biographie;
 	}
 
-	public Set<Object> getRolesacteurses() {
-		return this.rolesacteurses;
+	/**
+	 * Getter des roles
+	 * @return Set<Object> rolesacteurses
+	 */
+	public Set<Object> getRolesacteurses()
+	{
+		return rolesacteurses;
 	}
 
-	public void setRolesacteurses(Set<Object> rolesacteurses) {
-		this.rolesacteurses = rolesacteurses;
+	/**
+	 * Setter des roles
+	 * @param rolesacteurs : les nouveaux roles
+	 */
+	public void setRolesacteurses(Set<Object> rolesacteurs)
+	{
+		this.rolesacteurses = rolesacteurs;
 	}
 
-	public Set<Object> getFilmses() {
-		return this.filmses;
+	/**
+	 * Getter des films scenarise
+	 * @return : Set<Object> filmses
+	 */
+	public Set<Object> getFilmses() 
+	{
+		return filmses;
 	}
 
-	public void setFilmses(Set<Object> filmses) {
-		this.filmses = filmses;
+	/**
+	 * Setter des films scenarise
+	 * @param films : les nouveaux films
+	 */
+	public void setFilmses(Set<Object> films)
+	{
+		this.filmses = films;
 	}
 
 }

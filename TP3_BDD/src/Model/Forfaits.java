@@ -9,72 +9,146 @@ import java.util.Set;
  */
 public class Forfaits implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3324040119877310711L;
+	
+	/**
+	 * Attributs de la classe correspondant aux champs de la table
+	 */
 	private String typeforfait;
 	private double cout;
 	private byte locationmax;
 	private short dureemax;
+	
+	/**
+	 * Liste des clients qui ont ce forfait
+	 */
 	private Set<Object> clientses = new HashSet<Object>(0);
 
-	public Forfaits() {
+	/**
+	 * Constructeur par defaut
+	 */
+	public Forfaits() 
+	{
 	}
 
-	public Forfaits(String typeforfait, double cout, byte locationmax, short dureemax) {
-		this.typeforfait = typeforfait;
+	/**
+	 * Construit un forfait avec tous ses attributs
+	 * @param typeForfait : le type du forfait
+	 * @param cout : le cout du forfait
+	 * @param locationMax : le nombre de location maximal du forfait
+	 * @param dureeMax : la duree de location maximal du forfait
+	 */
+	public Forfaits(String typeForfait, double cout, byte locationMax, short dureeMax)
+	{
+		this.typeforfait = typeForfait;
 		this.cout = cout;
-		this.locationmax = locationmax;
-		this.dureemax = dureemax;
+		this.locationmax = locationMax;
+		this.dureemax = dureeMax;
 	}
 
-	public Forfaits(String typeforfait, double cout, byte locationmax, short dureemax, Set<Object> clientses) {
-		this.typeforfait = typeforfait;
+	/**
+	* Construit un forfait avec tous ses attributs et les clients qui vont avec
+	 * @param typeForfait : le type du forfait
+	 * @param cout : le cout du forfait
+	 * @param locationMax : le nombre de location maximal du forfait
+	 * @param dureeMax : la duree de location maximal du forfait
+	 * @param clients : les clients qui ont ce forfait
+	 */
+	public Forfaits(String typeForfait, double cout, byte locationMax, short dureeMax, Set<Object> clients) 
+	{
+		this.typeforfait = typeForfait;
 		this.cout = cout;
-		this.locationmax = locationmax;
-		this.dureemax = dureemax;
-		this.clientses = clientses;
+		this.locationmax = locationMax;
+		this.dureemax = dureeMax;
+		this.clientses = clients;
 	}
 
-	public String getTypeforfait() {
-		return this.typeforfait;
+	/**
+	 * Getter du type
+	 * @return String typeforfait
+	 */
+	public String getTypeforfait() 
+	{
+		return typeforfait;
 	}
 
-	public void setTypeforfait(String typeforfait) {
-		this.typeforfait = typeforfait;
+	/**
+	 * Setter du type
+	 * @param typeForfait : le nouveau type
+	 */
+	public void setTypeforfait(String typeForfait)
+	{
+		this.typeforfait = typeForfait;
 	}
 
-	public double getCout() {
-		return this.cout;
+	/**
+	 * Getter du cout
+	 * @return double cout
+	 */
+	public double getCout() 
+	{
+		return cout;
 	}
 
-	public void setCout(double cout) {
+	/**
+	 * Setter du cout
+	 * @param cout : le nouveau cout
+	 */
+	public void setCout(double cout) 
+	{
 		this.cout = cout;
 	}
 
-	public byte getLocationmax() {
-		return this.locationmax;
+	/**
+	 * Getter du nombre de location maximal
+	 * @return byte locationmax
+	 */
+	public byte getLocationmax()
+	{
+		return locationmax;
 	}
 
-	public void setLocationmax(byte locationmax) {
-		this.locationmax = locationmax;
+	/**
+	 * Setter du nombre de location maximal
+	 * @param locationMax : le nouveau nombre de location maximal
+	 */
+	public void setLocationmax(byte locationMax) {
+		this.locationmax = locationMax;
 	}
 
-	public short getDureemax() {
-		return this.dureemax;
+	/**
+	 * Getter de la duree maximal de location
+	 * @return dureemax
+	 */
+	public short getDureemax()
+	{
+		return dureemax;
 	}
 
-	public void setDureemax(short dureemax) {
-		this.dureemax = dureemax;
+	/**
+	 * Setter de la duree maximal de location
+	 * @param dureeMax : la nouvelle duree maximal
+	 */
+	public void setDureemax(short dureeMax)
+	{
+		this.dureemax = dureeMax;
 	}
 
-	public Set<Object> getClientses() {
-		return this.clientses;
+	/**
+	 * Setter des clients
+	 * @return Set<Object> clientses
+	 */
+	public Set<Object> getClientses() 
+	{
+		return clientses;
 	}
 
-	public void setClientses(Set<Object> clientses) {
-		this.clientses = clientses;
+	/**
+	 * Setter des clients
+	 * @param clients : les nouveaux clients
+	 */
+	public void setClientses(Set<Object> clients) {
+		this.clientses = clients;
 	}
 
 }

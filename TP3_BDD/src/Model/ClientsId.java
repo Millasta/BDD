@@ -6,41 +6,75 @@ package Model;
  */
 public class ClientsId implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 813224666662760069L;
+	
+	/**
+	 * L'utilisateur correspondant au client
+	 */
 	private Utilisateurs utilisateurs;
 
-	public ClientsId() {
+	/**
+	 * Constructeur par defaut
+	 */
+	public ClientsId() 
+	{
 	}
 
-	public ClientsId(Utilisateurs utilisateurs) {
-		this.utilisateurs = utilisateurs;
+	/**
+	 * Construit l'id d'un client avec l'utilisateur correspondant
+	 * @param utilisateur : l'utilisateur
+	 */
+	public ClientsId(Utilisateurs utilisateur) 
+	{
+		this.utilisateurs = utilisateur;
 	}
 
-	public Utilisateurs getUtilisateurs() {
-		return this.utilisateurs;
+	/**
+	 * Getter de l'utilisateur
+	 * @return Utilisateurs utilisateurs
+	 */
+	public Utilisateurs getUtilisateurs()
+	{
+		return utilisateurs;
 	}
 
-	public void setUtilisateurs(Utilisateurs utilisateurs) {
-		this.utilisateurs = utilisateurs;
+	/**
+	 * Setter de l'utilisateur
+	 * @param utilisateur : le nouvel utilisateur
+	 */
+	public void setUtilisateurs(Utilisateurs utilisateur)
+	{
+		this.utilisateurs = utilisateur;
 	}
 
-	public boolean equals(Object other) {
-		if ((this == other))
+	/**
+	 * Verifie si le client existe deja
+	 */
+	public boolean equals(Object other) 
+	{
+		if (this == other)
+		{
 			return true;
-		if ((other == null))
+		}
+		if (other == null)
+		{
 			return false;
+		}
 		if (!(other instanceof ClientsId))
+		{
 			return false;
+		}
+		
 		ClientsId castOther = (ClientsId) other;
 
-		return ((this.getUtilisateurs() == castOther.getUtilisateurs()) || (this.getUtilisateurs() != null
-				&& castOther.getUtilisateurs() != null && this.getUtilisateurs().equals(castOther.getUtilisateurs())));
+		return ((this.getUtilisateurs() == castOther.getUtilisateurs()) || (this.getUtilisateurs() != null && castOther.getUtilisateurs() != null && this.getUtilisateurs().equals(castOther.getUtilisateurs())));
 	}
 
-	public int hashCode() {
+	/**
+	 * Retourne l'utilisateur hache
+	 */
+	public int hashCode() 
+	{
 		int result = 17;
 
 		result = 37 * result + (getUtilisateurs() == null ? 0 : this.getUtilisateurs().hashCode());

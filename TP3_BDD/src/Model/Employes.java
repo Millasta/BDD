@@ -6,36 +6,66 @@ package Model;
  */
 public class Employes implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6023839981956432730L;
+	
+	/**
+	 * Attributs de la classe correspondant aux champs de la table
+	 */
 	private int matricule;
 	private Utilisateurs utilisateurs;
 
-	public Employes() {
+	/**
+	 * Constructeur par defaut
+	 */
+	public Employes() 
+	{
 	}
 
-	public Employes(int matricule, Utilisateurs utilisateurs) {
-		System.out.println("Nouvel employe, matricule : " + matricule);
+	/**
+	 * Construit un employe avec son matricule et l'utilisateur correspondant
+	 * @param matricule : le matricule de l'employe
+	 * @param utilisateurs : l'utilisateur correspondant
+	 */
+	public Employes(int matricule, Utilisateurs utilisateur) 
+	{
 		this.matricule = matricule;
-		this.utilisateurs = utilisateurs;
+		this.utilisateurs = utilisateur;
 	}
 
-	public int getMatricule() {
-		return this.matricule;
+	/**
+	 * Getter du matricule
+	 * @return int matricule
+	 */
+	public int getMatricule() 
+	{
+		return matricule;
 	}
 
-	public void setMatricule(int matricule) {
+	/**
+	 * Setter du matricule
+	 * @param matricule : le nouveau matricule
+	 */
+	public void setMatricule(int matricule)
+	{
 		this.matricule = matricule;
 	}
 
-	public Utilisateurs getUtilisateurs() {
-		return this.utilisateurs;
+	/**
+	 * Getter de l'utilisateur
+	 * @return Utilisateurs utilisateurs
+	 */
+	public Utilisateurs getUtilisateurs() 
+	{
+		return utilisateurs;
 	}
 
-	public void setUtilisateurs(Utilisateurs utilisateurs) {
-		this.utilisateurs = utilisateurs;
+	/**
+	 * Setter de l'utilisateur
+	 * @param utilisateur : le nouvel utilisateur
+	 */
+	public void setUtilisateurs(Utilisateurs utilisateur)
+	{
+		this.utilisateurs = utilisateur;
 	}
 
 }

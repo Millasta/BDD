@@ -139,13 +139,13 @@ public class ControleEmploye {
 		bdEmploye.getUtilisateurs().setCourriel(courriel);
 		bdEmploye.getUtilisateurs().setTelephone(telephone);
 		bdEmploye.getUtilisateurs().setNaissance(StringToDate(dateNaissance));
-		bdEmploye.getUtilisateurs().setMotdepasse(Integer.toString(motDePasse.hashCode()));
+		bdEmploye.getUtilisateurs().setMotdepasse(motDePasse);
 		bdEmploye.getUtilisateurs().setAdresse(adresse);
 		
 		alEmploye.getUtilisateurs().setCourriel(courriel);
 		alEmploye.getUtilisateurs().setTelephone(telephone);
 		alEmploye.getUtilisateurs().setNaissance(StringToDate(dateNaissance));
-		alEmploye.getUtilisateurs().setMotdepasse(Integer.toString(motDePasse.hashCode()));
+		alEmploye.getUtilisateurs().setMotdepasse(motDePasse);
 		alEmploye.getUtilisateurs().setAdresse(adresse);
 		
 		HibernateUtil.RealiserTransaction();

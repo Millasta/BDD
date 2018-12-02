@@ -146,7 +146,7 @@ public class ControleClient {
 		bdClient.getId().getUtilisateurs().setCourriel(courriel);
 		bdClient.getId().getUtilisateurs().setTelephone(telephone);
 		bdClient.getId().getUtilisateurs().setNaissance(StringToDate(dateNaissance));
-		bdClient.getId().getUtilisateurs().setMotdepasse(Integer.toString(motDePasse.hashCode()));
+		bdClient.getId().getUtilisateurs().setMotdepasse(motDePasse);
 		bdClient.getId().getUtilisateurs().setAdresse(adresse);
 		bdClient.setTypecarte(typeCarte);
 		bdClient.setNumerocarte(numeroCarte);
@@ -156,7 +156,7 @@ public class ControleClient {
 		alClient.getId().getUtilisateurs().setCourriel(courriel);
 		alClient.getId().getUtilisateurs().setTelephone(telephone);
 		alClient.getId().getUtilisateurs().setNaissance(StringToDate(dateNaissance));
-		alClient.getId().getUtilisateurs().setMotdepasse(Integer.toString(motDePasse.hashCode()));
+		alClient.getId().getUtilisateurs().setMotdepasse(motDePasse);
 		alClient.getId().getUtilisateurs().setAdresse(adresse);
 		alClient.setTypecarte(typeCarte);
 		alClient.setNumerocarte(numeroCarte);
@@ -222,7 +222,7 @@ public class ControleClient {
 		
 		if(client != null)
 		{
-			if(client.getId().getUtilisateurs().getMotdepasse().equals(Integer.toString(motDePass.hashCode())))
+			if(client.getId().getUtilisateurs().getMotdepasse().equals(motDePass))
 			{
 				connexion = true;
 			}

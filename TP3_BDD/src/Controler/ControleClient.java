@@ -227,6 +227,7 @@ public class ControleClient {
 	}
 	
 	/**
+	/**
 	 * Permet la connexion d'un client si celui-ci est reconnue
 	 * @param courriel : le courriel du client
 	 * @param motDePass : le mot de passe du client
@@ -274,6 +275,8 @@ public class ControleClient {
 		return retard;
 	}
 	
+	/**
+	 * Retourne la liste des copies en retard
 	/**
 	 * Retourne la liste des copies en retard
 	 * @param nom : le nom du client

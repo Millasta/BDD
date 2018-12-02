@@ -1,6 +1,7 @@
 package Controler;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -61,6 +62,7 @@ public class ControlePrincipal {
 		ControlerClient = new ControleClient(ControlerForfait);
 		ControlerEmploye = new ControleEmploye();
 		ControlerFilm = new ControleFilm(ControlerClient);
+		TesterCommunicationBDD();
 	}
 	
 	/**
@@ -70,6 +72,16 @@ public class ControlePrincipal {
 	public void finalize()
 	{
 		HibernateUtil.shutdown();
+	}
+	
+	/**
+	 * Remplie la base de donnees avec des donnees de test
+	 * @throws ParseException 
+	 * @throws SQLException 
+	 */
+	private void TesterCommunicationBDD() throws SQLException, ParseException
+	{
+		ControlerClient.Creer("Nom3", "Prenom3", "Courriel3", "0", "01/01/2000", "password", "adresse", "Visa", 0, "01/01/2022", "Debutant");
 	}
 
 	/**

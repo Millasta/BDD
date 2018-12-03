@@ -5,9 +5,14 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import Model.Films;
+import Model.Personnes;
+import Model.Rolesacteurs;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -29,6 +34,7 @@ public class ControlePrincipal {
 	@FXML private AnchorPane genresPane;
 	@FXML private AnchorPane paysPane;
 	@FXML private AnchorPane resumePane;
+	@FXML private AnchorPane infoPersonnePane;
 	
 	@FXML private Button custButton;
 	@FXML private Button empButton;
@@ -42,6 +48,9 @@ public class ControlePrincipal {
 	@FXML private Button backResumeButton;
 	@FXML private Button deconnectButton;
 	@FXML private Button searchButton;
+	@FXML private Button backInfoButton;
+	@FXML private Button scenarInfoButton;
+	@FXML private Button acteurInfoButton;
 	
 	@FXML private PasswordField empPwdField;
 	@FXML private PasswordField custPwdField;
@@ -62,6 +71,7 @@ public class ControlePrincipal {
 	@FXML private Label genresLabel;
 	@FXML private Label paysLabel;
 	@FXML private Label resumeLabel;
+	@FXML private Label infoPersonneLabel;
 	
 	@FXML private TableView<Films> filmTable;
 	@FXML private TableColumn<String, String> titreCol;
@@ -69,6 +79,9 @@ public class ControlePrincipal {
 	@FXML private TableColumn<String, String> langueCol;
 	@FXML private TableColumn<String, Short> dureeCol;
 	@FXML private TableColumn<String, Integer> copiesCol;
+	
+	@FXML private ListView<String> acteurList;
+	@FXML private ListView<String> scenarList;
 	
 	/**
 	 * Declaration des différents sous controlers
@@ -205,12 +218,26 @@ public class ControlePrincipal {
 	public void consultScenarPane() {
 		searchFilmPane.setVisible(false);
 		scenarPane.setVisible(true);
+		ObservableList<String> items = FXCollections.observableArrayList();
+		Films filmSelect = filmTable.getSelectionModel().getSelectedItem();
+		for(Object p : filmSelect.getPersonneses()) {
+			Personnes personne = (Personnes)p;
+			items.add(new String(personne.getId().getNom() + " " + personne.getId().getPrenom()));
+		}
+		scenarList.setItems(items);
 	}
 	
 	@FXML
 	public void consultActeursPane() {
 		searchFilmPane.setVisible(false);
 		acteursPane.setVisible(true);
+		Films filmSelect = filmTable.getSelectionModel().getSelectedItem();
+		ObservableList<String> items = FXCollections.observableArrayList();
+		for(Object ra : filmSelect.getRolesacteurses()) {
+			Rolesacteurs roleActeur = (Rolesacteurs)ra;
+			items.add(new String(roleActeur.getId().getPersonnes().getId().getNom() + " " + roleActeur.getId().getPersonnes().getId().getPrenom() + " : " + roleActeur.getNompersonnage()));
+		}
+		acteurList.setItems(items);
 	}
 	
 	@FXML
@@ -238,6 +265,46 @@ public class ControlePrincipal {
 	}
 	
 	@FXML
+	public void infoPersonneScenar() {
+		String scenar = scenarList.getSelectionModel().getSelectedItem();
+		if(scenar != null) {
+			scenarPane.setVisible(false);
+			infoPersonnePane.setVisible(true);
+			String info = null;
+			Films f = filmTable.getSelectionModel().getSelectedItem();
+			for(Object o : f.getPersonneses()) {
+				Personnes p = (Personnes)o;
+				if(scenarList.getSelectionModel().getSelectedItem().equals(p.getId().getNom() + " " + p.getId().getPrenom()));
+					info = new String(scenarList.getSelectionModel().getSelectedItem() + '\n'
+						+ "Date de naissance : " + p.getNaissance() + '\n'
+						+ "Lieu de naissance : " + p.getLieunaissance() + '\n'
+						+ "Biographie : " + p.getBiographie());
+			}
+			infoPersonneLabel.setText(info);
+		}
+	}
+	
+	@FXML
+	public void infoPersonneActeur() {
+		String acteur = acteurList.getSelectionModel().getSelectedItem();
+		if(acteur != null) {
+			acteursPane.setVisible(false);
+			infoPersonnePane.setVisible(true);
+			String info = null;
+			Films f = filmTable.getSelectionModel().getSelectedItem();
+			for(Object o : f.getRolesacteurses()) {
+				Personnes p = ((Rolesacteurs)o).getId().getPersonnes();
+				if(acteurList.getSelectionModel().getSelectedItem().equals(p.getId().getNom() + " " + p.getId().getPrenom()));
+					info = new String(acteurList.getSelectionModel().getSelectedItem() + '\n'
+						+ "Date de naissance : " + p.getNaissance() + '\n'
+						+ "Lieu de naissance : " + p.getLieunaissance() + '\n'
+						+ "Biographie : " + p.getBiographie());
+			}
+			infoPersonneLabel.setText(info);
+		}
+	}
+	
+	@FXML
 	public void rent() {
 		//TODO
 	}
@@ -250,6 +317,7 @@ public class ControlePrincipal {
 		genresPane.setVisible(false);
 		paysPane.setVisible(false);
 		resumePane.setVisible(false);
+		infoPersonnePane.setVisible(false);
 		searchFilmPane.setVisible(true);
 	}
 	

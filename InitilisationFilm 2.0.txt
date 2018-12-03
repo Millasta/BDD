@@ -1,0 +1,68 @@
+Session hbSession = HibernateUtil.DemarerTransaction();
+		
+		List<?> lesFilms = hbSession.createQuery("select f.titre, f.annee, f.duree, f.langue, f.resume, f.genres, f.paysproduction from Films f").list();
+		
+		for(Iterator<?> iFilm = lesFilms.iterator(); iFilm.hasNext();)
+		{
+			Object[] film = (Object[]) iFilm.next();
+			Films f = new Films((String) film[0], (int) film[1], (short) film[2], (String) film[3], (String) film[4], (String) film[5], (String) film[6]);
+			
+			List<?> lesScenariste = hbSession.createQuery("select f.personneses.id.nom, f.personneses.id.prenom, f.personneses.naissance, f.personneses.lieunaissance, f.personneses.biographie from Films f where f.titre = :titre").setParameter("titre", film[0]).list();
+			
+			for(Iterator<?> iScenariste = (Iterator<?>) lesScenariste.iterator(); iScenariste.hasNext();)
+			{
+				Object[] scenariste = (Object[]) iScenariste.next();
+				
+				if(RechercherScenariste((String) scenariste[0], (String) scenariste[1]) == null)
+				{
+					PersonnesId pId = new PersonnesId((String) scenariste[0], (String) scenariste[1]);
+					Personnes p = new Personnes(pId, (Date) scenariste[2], (String) scenariste[3], (String) scenariste[4]);
+					
+					p.getFilmses().add(f);
+					f.getPersonneses().add(p);
+					Scenaristes.add(p);
+				}
+			}
+			
+			List<?> lesActeurs = hbSession.createQuery("select f.rolesacteurses.id.personnes.id.nom, f.rolesacteurses.id.personnes.id.prenom, f.rolesacteurses.id.personnes.naissance, f.rolesacteurses.id.personnes.lieunaissance, f.rolesacteurses.id.personnes.biographie, f.rolesacteurses.nompersonnage from Films f where f.titre = :titre").setParameter("titre", film[0]).list();
+			
+			for(Iterator<?> iActeur = (Iterator<?>) lesActeurs.iterator(); iActeur.hasNext();)
+			{
+				Object[] acteur = (Object[]) iActeur.next();
+				
+				if(RechercherScenariste((String) acteur[0], (String) acteur[1]) == null)
+				{
+					PersonnesId pId = new PersonnesId((String) acteur[0], (String) acteur[1]);
+					Personnes p = new Personnes(pId, (Date) acteur[2], (String) acteur[3], (String) acteur[4]);
+					RolesacteursId raId = new RolesacteursId(p, f);
+					Rolesacteurs ra = new Rolesacteurs(raId, (String) acteur[5]);
+					
+					p.getFilmses().add(f);
+					f.getRolesacteurses().add(ra);
+					RolesActeurs.add(ra);
+				}
+			}
+			
+			List<?> lesCopies = hbSession.createQuery("select f.copieses.numerocopie, f.copieses.clients.id.utilisateurs.id.nom, f.copieses.clients.id.utilisateurs.id.prenom, f.copieses.datelocation from Films f where f.titre = :titre").setParameter("titre", film[0]).list();
+			
+			for(Iterator<?> iCopie = (Iterator<?>) lesCopies.iterator(); iCopie.hasNext();)
+			{
+				Object[] copie = (Object[]) iCopie.next();
+				Copies c = new Copies((int) copie[0], f);
+				
+				Clients locataire = ControlerClient.RechercherParNom((String) copie[1], (String) copie[2]);
+				
+				if(locataire != null)
+				{
+					c.setClients(locataire);
+					c.setDatelocation((Date) copie[3]);
+				}
+				
+				f.getCopieses().add(c);
+				Copies.add(c);
+			}
+			
+			Films.add(f);
+		}
+		
+		HibernateUtil.RealiserTransaction();

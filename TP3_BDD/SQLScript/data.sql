@@ -72,9 +72,9 @@ EXECUTE ProcAjoutFilm('Avengers: Infinity War', 2018, 149, 'Anglais', 'Resume', 
 
 EXECUTE ProcAjoutScenariste('Russo', 'Anthony', 'Avengers: Infinity War');
 
-EXECUTE ProcAjoutActeurFilm('Downey', 'Robert', 'Avengers: Infinity War', 'Jack Sparrow');
+EXECUTE ProcAjoutActeurFilm('Downey', 'Robert', 'Avengers: Infinity War', 'Iron man');
 
-EXECUTE ProcAjoutActeurFilm('Hemsworth', 'Chris', 'Avengers: Infinity War', 'Elizabeth Swann');
+EXECUTE ProcAjoutActeurFilm('Hemsworth', 'Chris', 'Avengers: Infinity War', 'Thor');
 
 
 
@@ -101,3 +101,5 @@ EXECUTE ProcAjoutClient('Nom5', 'Prenom5', 'Courriel5', 0, DATE '2000-01-01', 'p
 EXECUTE ProcAjoutClient('Nom6', 'Prenom6', 'Courriel6', 0, DATE '2000-01-01', 'password', 'adresse', 'Visa', 0, DATE '2022-01-01', 'Debutant');
 
 EXECUTE ProcAjoutClient('Nom7', 'Prenom7', 'Courriel7', 0, DATE '2000-01-01', 'password', 'adresse', 'Visa', 0, DATE '2022-01-01', 'Debutant');
+
+COMMIT;

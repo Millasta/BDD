@@ -66,29 +66,62 @@ public class ControleFilm {
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		
-		Films film = null;
-		List<?> lesFilms = hbSession.createQuery("from Films").list();
+		List<?> lesFilms = hbSession.createQuery("select f.titre, f.annee, f.duree, f.langue, f.resume, f.genres, f.paysproduction from Films f").list();
 		
 		for(Iterator<?> iFilm = lesFilms.iterator(); iFilm.hasNext();)
 		{
-			film = (Films) iFilm.next();
+			Object[] film = (Object[]) iFilm.next();
+			Films f = new Films((String) film[0], (int) film[1], (short) film[2], (String) film[3], (String) film[4], (String) film[5], (String) film[6]);
 			
-			for(Iterator<?> iScenariste = (Iterator<?>) film.getPersonneses().iterator(); iScenariste.hasNext();)
+			//TODO : faire comme les acteurs pour pouvoir permettre la location sans rechargement des clients
+			List<?> lesScenaristes = hbSession.createQuery("select f.personneses from Films f where f.titre = :titre").setParameter("titre", f.getTitre()).list();
+			
+			for(Iterator<?> iScenariste = (Iterator<?>) lesScenaristes.iterator(); iScenariste.hasNext();)
 			{
-				Scenaristes.add((Personnes) iScenariste.next());
+				Personnes rea = (Personnes) iScenariste.next();
+				f.getPersonneses().add(rea);
+				Scenaristes.add(rea);
 			}
 			
-			for(Iterator<?> iActeur = (Iterator<?>) film.getRolesacteurses().iterator(); iActeur.hasNext();)
+			List<?> lesActeurs = hbSession.createQuery("select ra.id.personnes.id.nom, ra.id.personnes.id.prenom, ra.id.personnes.naissance, ra.id.personnes.lieunaissance, ra.id.personnes.biographie, ra.nompersonnage from Rolesacteurs ra where ra.id.films.titre = :titre").setParameter("titre", f.getTitre()).list();
+			
+			for(Iterator<?> iActeur = (Iterator<?>) lesActeurs.iterator(); iActeur.hasNext();)
 			{
-				RolesActeurs.add((Rolesacteurs) iActeur.next());
+				Object[] acteur = (Object[]) iActeur.next();
+				
+				if(RechercherScenariste((String) acteur[0], (String) acteur[1]) == null)
+				{
+					PersonnesId pId = new PersonnesId((String) acteur[0], (String) acteur[1]);
+					Personnes p = new Personnes(pId, (Date) acteur[2], (String) acteur[3], (String) acteur[4]);
+					RolesacteursId raId = new RolesacteursId(p, f);
+					Rolesacteurs ra = new Rolesacteurs(raId, (String) acteur[5]);
+					
+					p.getFilmses().add(f);
+					f.getRolesacteurses().add(ra);
+					RolesActeurs.add(ra);
+				}
 			}
 			
-			for(Iterator<?> iCopie = (Iterator<?>) film.getCopieses().iterator(); iCopie.hasNext();)
+			List<?> lesCopies = hbSession.createQuery("select c.numerocopie, c.clients.id.utilisateurs.id.nom, c.clients.id.utilisateurs.id.prenom, c.datelocation from Copies c where c.films.titre = :titre").setParameter("titre", f.getTitre()).list();
+			
+			for(Iterator<?> iCopie = (Iterator<?>) lesCopies.iterator(); iCopie.hasNext();)
 			{
-				Copies.add((Copies) iCopie.next());
+				Object[] copie = (Object[]) iCopie.next();
+				Copies c = new Copies((int) copie[0], f);
+				
+				Clients locataire = ControlerClient.RechercherParNom((String) copie[1], (String) copie[2]);
+				
+				if(locataire != null)
+				{
+					c.setClients(locataire);
+					c.setDatelocation((Date) copie[3]);
+				}
+				
+				f.getCopieses().add(c);
+				Copies.add(c);
 			}
 			
-			Films.add(film);
+			Films.add(f);
 		}
 		
 		HibernateUtil.RealiserTransaction();
@@ -316,18 +349,17 @@ public class ControleFilm {
 		if(alALouer != null && loueur.getCopieses().size() < loueur.getForfaits().getLocationmax())
 		{
 			bdALouer = (Copies) hbSession.createQuery("from Copies c where c.numerocopie = :num").setParameter("num", alALouer.getNumerocopie()).list().iterator().next();
-			System.out.println("***********************************************************1*********************************************");
+			
 			bdALouer.setClients(loueur);
 			bdALouer.setDatelocation(new SimpleDateFormat("yyyy-mm-dd").parse(LocalDate.now().toString()));
-			System.out.println("***********************************************************2*********************************************");
+			
 			alALouer.setClients(loueur);
 			alALouer.setDatelocation(new SimpleDateFormat("yyyy-mm-dd").parse(LocalDate.now().toString()));
-			System.out.println("***********************************************************3*********************************************");
+			
 			loueur.getCopieses().add(alALouer);
 			louable = true;
-			System.out.println("***********************************************************4*********************************************");
 		}
-		System.out.println("***********************************************************5*********************************************");
+		
 		HibernateUtil.RealiserTransaction();
 		
 		return louable;

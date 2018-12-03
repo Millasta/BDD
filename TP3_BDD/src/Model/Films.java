@@ -21,7 +21,8 @@ public class Films implements java.io.Serializable {
 	private String resume;
 	private String genres;
 	private String paysproduction;
-	
+	private int copies;
+
 	/**
 	 * Liste des acteurs du film
 	 */
@@ -200,6 +201,14 @@ public class Films implements java.io.Serializable {
 		this.genres = genres;
 	}
 
+	public int getCopies() {
+		return copies;
+	}
+
+	public void setCopies(int copies) {
+		this.copies = copies;
+	}
+	
 	/**
 	 * Getter des pays de production
 	 * @return String paysproduction

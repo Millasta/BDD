@@ -99,7 +99,7 @@
             <PasswordField fx:id="empPwdField" layoutX="321.0" layoutY="221.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="searchFilmPane" prefHeight="600.0" prefWidth="800.0">
+      <AnchorPane fx:id="searchFilmPane" prefHeight="600.0" prefWidth="800.0" visible="false">
          <children>
             <TableView fx:id="filmTable" layoutY="98.0" prefHeight="502.0" prefWidth="591.0">
               <columns>
@@ -198,6 +198,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <Label fx:id="genresLabel" layoutX="227.0" layoutY="112.0" prefHeight="300.0" prefWidth="325.0" text="Genres :" textAlignment="CENTER" />
          </children></AnchorPane>
       <AnchorPane fx:id="paysPane" prefHeight="600.0" prefWidth="800.0" visible="false">
          <children>
@@ -206,14 +207,16 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <Label fx:id="paysLabel" layoutX="264.0" layoutY="160.0" prefHeight="208.0" prefWidth="273.0" text="Pays de production : " />
          </children></AnchorPane>
-      <AnchorPane fx:id="resumePane" prefHeight="600.0" prefWidth="800.0" visible="false">
+      <AnchorPane fx:id="resumePane" prefHeight="600.0" prefWidth="800.0">
          <children>
             <Button fx:id="backResumeButton" layoutX="350.0" layoutY="500.0" mnemonicParsing="false" onAction="#backSearch" text="Retour">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
+            <Label fx:id="resumeLabel" layoutX="299.0" layoutY="228.0" prefHeight="170.0" prefWidth="256.0" text="Résumé : " />
          </children></AnchorPane>
    </children>
 </AnchorPane>

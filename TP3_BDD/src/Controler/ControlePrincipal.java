@@ -59,6 +59,9 @@ public class ControlePrincipal {
 	
 	@FXML private Label errCustConnectLabel;
 	@FXML private Label errFilmLabel;
+	@FXML private Label genresLabel;
+	@FXML private Label paysLabel;
+	@FXML private Label resumeLabel;
 	
 	@FXML private TableView<Films> filmTable;
 	@FXML private TableColumn<String, String> titreCol;
@@ -214,18 +217,24 @@ public class ControlePrincipal {
 	public void consultGenresPane() {
 		searchFilmPane.setVisible(false);
 		genresPane.setVisible(true);
+		Films filmSelect = filmTable.getSelectionModel().getSelectedItem();
+		genresLabel.setText(filmSelect.getGenres());
 	}
 	
 	@FXML
 	public void consultPaysPane() {
 		searchFilmPane.setVisible(false);
 		paysPane.setVisible(true);
+		Films filmSelect = filmTable.getSelectionModel().getSelectedItem();
+		paysLabel.setText(filmSelect.getPaysproduction());
 	}
 	
 	@FXML
 	public void consultResumePane() {
 		searchFilmPane.setVisible(false);
 		resumePane.setVisible(true);
+		Films filmSelect = filmTable.getSelectionModel().getSelectedItem();
+		resumeLabel.setText(filmSelect.getResume());
 	}
 	
 	@FXML

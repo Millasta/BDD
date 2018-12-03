@@ -48,12 +48,6 @@ public class Clients implements java.io.Serializable {
 		this.typecarte = typeCarte;
 		this.numerocarte = numeroCarte;
 		this.dateexpiration = dateExpiration;
-		
-		System.out.println("Nouveau client : " + id.getUtilisateurs().getId().getPrenom());
-		System.out.println("Forfait : " + forfaits.getTypeforfait());
-		System.out.println("Type carte : " + typeCarte);
-		System.out.println("Numero carte : " + numeroCarte);
-		System.out.println("Date expi : " + dateExpiration.toString());
 	}
 
 	/**

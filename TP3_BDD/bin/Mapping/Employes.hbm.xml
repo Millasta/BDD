@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Nov 30, 2018 9:19:16 AM by Hibernate Tools 5.3.6.Final -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="false">
+
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="Model.Employes" optimistic-lock="version" polymorphism="implicit" schema="TPBDD" select-before-update="false" table="EMPLOYES">
+
+        <id name="matricule" type="int">
+            <column name="MATRICULE" precision="8" scale="0"/>
+            <generator class="assigned"/>
+        </id>
+
+        <many-to-one class="Model.Utilisateurs" embed-xml="true" fetch="select" insert="true" name="utilisateurs" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column length="30" name="NOM" not-null="false"/>
+            <column length="30" name="PRENOM" not-null="false"/>
+        </many-to-one>
+
+    </class>
+
+</hibernate-mapping>

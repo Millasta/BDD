@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Nov 30, 2018 9:19:16 AM by Hibernate Tools 5.3.6.Final -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+
+    <class name="Model.Clients" table="CLIENTS">
+
+        <composite-id class="Model.ClientsId" name="id" >
+            <key-many-to-one class="Model.Utilisateurs" name="utilisateurs">
+                <column length="30" name="NOM"/>
+                <column length="30" name="PRENOM"/>
+            </key-many-to-one>
+        </composite-id>
+
+        <many-to-one class="Model.Forfaits" name="forfaits">
+            <column length="20" name="TYPEFORFAIT" not-null="true"/>
+        </many-to-one>
+
+        <property name="typecarte" >
+            <column length="16" name="TYPECARTE" not-null="true"/>
+        </property>
+
+        <property name="numerocarte" >
+            <column name="NUMEROCARTE" not-null="true"/>
+        </property>
+
+        <property name="dateexpiration" >
+            <column length="7" name="DATEEXPIRATION" not-null="true"/>
+        </property>
+
+        <set name="copieses" table="COPIES">
+            <key on-delete="noaction">
+                <column length="30" name="NOMCLIENT"/>
+                <column length="30" name="PRENOMCLIENT"/>
+            </key>
+            <one-to-many class="Model.Copies" />
+        </set>
+
+    </class>
+
+</hibernate-mapping>

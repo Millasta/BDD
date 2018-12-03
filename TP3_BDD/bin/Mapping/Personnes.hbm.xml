@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Nov 30, 2018 9:19:16 AM by Hibernate Tools 5.3.6.Final -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="false">
+
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="Model.Personnes" optimistic-lock="version" polymorphism="implicit" schema="TPBDD" select-before-update="false" table="PERSONNES">
+
+        <composite-id class="Model.PersonnesId" mapped="false" name="id" unsaved-value="undefined">
+            <key-property name="nom" type="string">
+                <column length="30" name="NOM"/>
+            </key-property>
+            <key-property name="prenom" type="string">
+                <column length="30" name="PRENOM"/>
+            </key-property>
+        </composite-id>
+
+        <property generated="never" lazy="false" name="naissance" optimistic-lock="true" type="date" unique="false">
+            <column length="7" name="NAISSANCE" not-null="true"/>
+        </property>
+
+        <property generated="never" lazy="false" name="lieunaissance" optimistic-lock="true" type="string" unique="false">
+            <column length="20" name="LIEUNAISSANCE" not-null="true"/>
+        </property>
+
+        <property generated="never" lazy="false" name="biographie" optimistic-lock="true" type="string" unique="false">
+            <column length="1000" name="BIOGRAPHIE" not-null="true"/>
+        </property>
+
+        <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="rolesacteurses" optimistic-lock="true" sort="unsorted" table="ROLESACTEURS">
+            <key on-delete="noaction">
+                <column length="30" name="NOM" not-null="true"/>
+                <column length="30" name="PRENOM" not-null="true"/>
+            </key>
+            <one-to-many class="Model.Rolesacteurs" embed-xml="true" not-found="exception"/>
+        </set>
+
+        <set embed-xml="true" fetch="select" inverse="false" lazy="false" mutable="true" name="filmses" optimistic-lock="true" sort="unsorted" table="SCENARISTES">
+            <key on-delete="noaction">
+                <column length="30" name="NOM" not-null="true"/>
+                <column length="30" name="PRENOM" not-null="true"/>
+            </key>
+            <many-to-many embed-xml="true" entity-name="Model.Films" not-found="exception" unique="false">
+                <column length="100" name="TITREFILM" not-null="true"/>
+            </many-to-many>
+        </set>
+
+    </class>
+
+</hibernate-mapping>

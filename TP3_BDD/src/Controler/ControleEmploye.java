@@ -31,7 +31,7 @@ public class ControleEmploye {
 	{
 		employes = new ArrayList<Employes>();
 		Initialiser();
-		//CreerAdministrateur();
+		CreerAdministrateur();
 	}
 	
 	/**
@@ -52,12 +52,9 @@ public class ControleEmploye {
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		List<?> lesEmployes = hbSession.createQuery("FROM Employes").list();
 		
-		System.out.println("Nb employes : " + lesEmployes.size());
-		
 		for(Iterator<?> iEmploye = lesEmployes.iterator(); iEmploye.hasNext();)
 		{
 			Employes e = (Employes) iEmploye.next();
-			System.out.println("Nouvel employe : " + e.getMatricule() + " Mdp : " + e.getUtilisateurs().getMotdepasse());
 			employes.add(e);
 		}
 		

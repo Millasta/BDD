@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Nov 30, 2018 9:19:16 AM by Hibernate Tools 5.3.6.Final -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="false">
+
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="Model.Utilisateurs" optimistic-lock="version" polymorphism="implicit" schema="TPBDD" select-before-update="false" table="UTILISATEURS">
+
+        <composite-id class="Model.UtilisateursId" mapped="false" name="id" unsaved-value="undefined">
+            <key-property name="nom" type="string">
+                <column length="30" name="NOM"/>
+            </key-property>
+            <key-property name="prenom" type="string">
+                <column length="30" name="PRENOM"/>
+            </key-property>
+        </composite-id>
+
+        <property generated="never" lazy="false" name="courriel" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="COURRIEL" not-null="true" unique="true"/>
+        </property>
+
+        <property generated="never" lazy="false" name="telephone" optimistic-lock="true" type="string" unique="false">
+            <column length="16" name="TELEPHONE" not-null="true"/>
+        </property>
+
+        <property generated="never" lazy="false" name="naissance" optimistic-lock="true" type="date" unique="false">
+            <column length="7" name="NAISSANCE" not-null="true"/>
+        </property>
+
+        <property generated="never" lazy="false" name="motdepasse" optimistic-lock="true" type="string" unique="false">
+            <column length="20" name="MOTDEPASSE" not-null="false"/>
+        </property>
+
+        <property generated="never" lazy="false" name="adresse" optimistic-lock="true" type="string" unique="false">
+            <column length="150" name="ADRESSE" not-null="true"/>
+        </property>
+
+        <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="employeses" optimistic-lock="true" sort="unsorted" table="EMPLOYES">
+            <key on-delete="noaction">
+                <column length="30" name="NOM" not-null="true"/>
+                <column length="30" name="PRENOM" not-null="true"/>
+            </key>
+            <one-to-many class="Model.Employes" embed-xml="true" not-found="exception"/>
+        </set>
+
+        <one-to-one class="Model.Clients" constrained="false" embed-xml="true" name="clients"/>
+
+    </class>
+
+</hibernate-mapping>

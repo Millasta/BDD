@@ -43,9 +43,9 @@ public class ControleForfait {
 		
 		List<?> lesForfaits = hbSession.createQuery("select f.typeforfait, f.cout, f.locationmax, f.dureemax from Forfaits f").list();
 		
-		for(Iterator<Object[]> iForfait = (Iterator<Object[]>) lesForfaits.iterator(); iForfait.hasNext();)
+		for(Iterator<?> iForfait = (Iterator<?>) lesForfaits.iterator(); iForfait.hasNext();)
 		{
-			Object[] result = iForfait.next();
+			Object[] result = (Object[]) iForfait.next();
 			Forfaits f = new Forfaits((String)result[0], (double)result[1], (byte)result[2], (short)result[3]);
 			forfaits.add(f);
 		}

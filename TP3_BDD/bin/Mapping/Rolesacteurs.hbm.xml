@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Nov 30, 2018 9:19:16 AM by Hibernate Tools 5.3.6.Final -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="false">
+
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="Model.Rolesacteurs" optimistic-lock="version" polymorphism="implicit" schema="TPBDD" select-before-update="false" table="ROLESACTEURS">
+
+        <composite-id class="Model.RolesacteursId" mapped="false" name="id" unsaved-value="undefined">
+            <key-many-to-one class="Model.Personnes" name="personnes">
+                <column length="30" name="NOM"/>
+                <column length="30" name="PRENOM"/>
+            </key-many-to-one>
+            <key-many-to-one class="Model.Films" name="films">
+                <column length="100" name="TITREFILM"/>
+            </key-many-to-one>
+        </composite-id>
+
+        <property generated="never" lazy="false" name="nompersonnage" optimistic-lock="true" type="string" unique="false">
+            <column length="40" name="NOMPERSONNAGE" not-null="true"/>
+        </property>
+
+    </class>
+
+</hibernate-mapping>

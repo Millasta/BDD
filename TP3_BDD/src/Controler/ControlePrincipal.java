@@ -60,8 +60,8 @@ public class ControlePrincipal {
 	{
 		ControlerForfait = new ControleForfait();
 		ControlerClient = new ControleClient(ControlerForfait);
-		ControlerEmploye = new ControleEmploye();
 		ControlerFilm = new ControleFilm(ControlerClient);
+		ControlerEmploye = new ControleEmploye();
 		//TesterCommunicationBDD();
 	}
 	
@@ -80,8 +80,12 @@ public class ControlePrincipal {
 	 * @throws SQLException 
 	 */
 	private void TesterCommunicationBDD() throws SQLException, ParseException
-	{
-		ControlerClient.Creer("Nom3", "Prenom3", "Courriel3", "0", "01/01/2000", "password", "adresse", "Visa", 0, "01/01/2022", "Debutant");
+	{		
+		//Test location de film
+		if(ControlerFilm.RechercherCopieLoue("Nom3", "Prenom3", "Venom") == null)
+		{
+			ControlerFilm.Louer("Nom3", "Prenom3", "Venom");
+		}
 	}
 
 	/**

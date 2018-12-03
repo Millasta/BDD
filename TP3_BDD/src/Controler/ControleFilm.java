@@ -72,22 +72,23 @@ public class ControleFilm {
 		for(Iterator<?> iFilm = lesFilms.iterator(); iFilm.hasNext();)
 		{
 			film = (Films) iFilm.next();
-			Films.add(film);
 			
-			for(Iterator<?> iPersonne = (Iterator<?>) film.getPersonneses().iterator(); iPersonne.hasNext();)
+			for(Iterator<?> iScenariste = (Iterator<?>) film.getPersonneses().iterator(); iScenariste.hasNext();)
 			{
-				Scenaristes.add((Personnes) iPersonne.next());
+				Scenaristes.add((Personnes) iScenariste.next());
 			}
 			
-			for(Iterator<?> iPersonne = (Iterator<?>) film.getRolesacteurses().iterator(); iPersonne.hasNext();)
+			for(Iterator<?> iActeur = (Iterator<?>) film.getRolesacteurses().iterator(); iActeur.hasNext();)
 			{
-				RolesActeurs.add((Rolesacteurs) iPersonne.next());
+				RolesActeurs.add((Rolesacteurs) iActeur.next());
 			}
 			
 			for(Iterator<?> iCopie = (Iterator<?>) film.getCopieses().iterator(); iCopie.hasNext();)
 			{
 				Copies.add((Copies) iCopie.next());
 			}
+			
+			Films.add(film);
 		}
 		
 		HibernateUtil.RealiserTransaction();
@@ -314,16 +315,19 @@ public class ControleFilm {
 		
 		if(alALouer != null && loueur.getCopieses().size() < loueur.getForfaits().getLocationmax())
 		{
-			bdALouer = (Copies) hbSession.createQuery("from Copies where Copies.NumeroCopie = :num").setParameter("num", alALouer.getNumerocopie()).list().iterator().next();
-			
+			bdALouer = (Copies) hbSession.createQuery("from Copies c where c.numerocopie = :num").setParameter("num", alALouer.getNumerocopie()).list().iterator().next();
+			System.out.println("***********************************************************1*********************************************");
 			bdALouer.setClients(loueur);
-			
+			bdALouer.setDatelocation(new SimpleDateFormat("yyyy-mm-dd").parse(LocalDate.now().toString()));
+			System.out.println("***********************************************************2*********************************************");
 			alALouer.setClients(loueur);
 			alALouer.setDatelocation(new SimpleDateFormat("yyyy-mm-dd").parse(LocalDate.now().toString()));
+			System.out.println("***********************************************************3*********************************************");
 			loueur.getCopieses().add(alALouer);
 			louable = true;
+			System.out.println("***********************************************************4*********************************************");
 		}
-		
+		System.out.println("***********************************************************5*********************************************");
 		HibernateUtil.RealiserTransaction();
 		
 		return louable;
@@ -599,7 +603,7 @@ public class ControleFilm {
 	{
 		Copies copie = null;
 		
-		for(Iterator<?> iCopie = (Iterator<?>) ControlerClient.RechercherParNom(nom, prenom).getCopieses(); copie == null && iCopie.hasNext();)
+		for(Iterator<?> iCopie = (Iterator<?>) ControlerClient.RechercherParNom(nom, prenom).getCopieses().iterator(); copie == null && iCopie.hasNext();)
 		{
 			copie = (Copies) iCopie.next();
 			if(!copie.getFilms().getTitre().equals(titre))

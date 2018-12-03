@@ -71,7 +71,6 @@ public class ControleClient {
 	/**
 	 * Initialise la liste des clients avec la bdd
 	 */
-	@SuppressWarnings("unchecked")
 	private void Initialiser()
 	{		
 		Session hbSession = HibernateUtil.DemarerTransaction();
@@ -81,11 +80,9 @@ public class ControleClient {
 												+  "c.forfaits.typeforfait,"
 												+  "c.typecarte, c.numerocarte, c.dateexpiration from Clients c").list();
 		
-		System.out.println("Nb clients : " + lesClients.size()); 
-		
-		for(Iterator<Object[]> iClient = (Iterator<Object[]>) lesClients.iterator(); iClient.hasNext();){
-			Object[] result = iClient.next();
-			System.out.println("Client : " + result[0]);
+		for(Iterator<?> iClient = (Iterator<?>) lesClients.iterator(); iClient.hasNext();)
+		{
+			Object[] result = (Object[]) iClient.next();
 			UtilisateursId uId = new UtilisateursId((String)result[0], (String)result[1]);
 			Utilisateurs u = new Utilisateurs(uId, (String)result[2], (String)result[3], (Date)result[4], (String)result[5], (String)result[6]);
 			ClientsId cId = new ClientsId(u);
@@ -122,6 +119,7 @@ public class ControleClient {
 		ClientsId idClient = new ClientsId(utilisateur);
 		Clients client = new Clients(idClient, ControlerForfait.Rechercher(typeForfait), typeCarte, numeroCarte, StringToDate(dateNaissance));
 		
+		utilisateur.setClients(client);
 		ControlerForfait.Rechercher(typeForfait).getClientses().add(client);
 		
 		hbSession.save(utilisateur);

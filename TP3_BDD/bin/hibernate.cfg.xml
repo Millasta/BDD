@@ -31,6 +31,7 @@
         <mapping resource="Mapping/Forfaits.hbm.xml"/>
         <mapping resource="Mapping/Personnes.hbm.xml"/>
         <mapping resource="Mapping/Rolesacteurs.hbm.xml"/>
+        <mapping resource="Mapping/Scenaristes.hbm.xml"/>
         <mapping resource="Mapping/Utilisateurs.hbm.xml"/>
         
 

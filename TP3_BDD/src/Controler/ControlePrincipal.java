@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import Model.Films;
 import Model.Personnes;
 import Model.Rolesacteurs;
+import Model.Scenaristes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -191,15 +192,12 @@ public class ControlePrincipal {
 	@FXML
 	public void custConnexion() {
 		if(!courrielField.getText().isEmpty()) {
-			System.out.println("Customer " + courrielField.getText() + " try to connect..");
 			if(ControlerClient.SeConnecter(courrielField.getText(), custPwdField.getText())) {
-				System.out.println("Connexion réussie !");
 				errCustConnectLabel.setVisible(false);
 				custConnectPane.setVisible(false);
 				searchFilmPane.setVisible(true);
 			}
 			else {
-				System.out.println("Echec de la connexion !");
 				errCustConnectLabel.setVisible(true);
 			}
 		}
@@ -224,9 +222,9 @@ public class ControlePrincipal {
 		scenarPane.setVisible(true);
 		ObservableList<String> items = FXCollections.observableArrayList();
 		Films filmSelect = filmTable.getSelectionModel().getSelectedItem();
-		for(Object p : filmSelect.getPersonneses()) {
-			Personnes personne = (Personnes)p;
-			items.add(new String(personne.getId().getNom() + " " + personne.getId().getPrenom()));
+		for(Object p : filmSelect.getScenaristes()) {
+			Scenaristes personne = (Scenaristes)p;
+			items.add(new String(personne.getId().getPersonnes().getId().getNom() + " " + personne.getId().getPersonnes().getId().getPrenom()));
 		}
 		scenarList.setItems(items);
 	}
@@ -276,13 +274,13 @@ public class ControlePrincipal {
 			infoPersonnePane.setVisible(true);
 			String info = null;
 			Films f = filmTable.getSelectionModel().getSelectedItem();
-			for(Object o : f.getPersonneses()) {
-				Personnes p = (Personnes)o;
-				if(scenarList.getSelectionModel().getSelectedItem().equals(p.getId().getNom() + " " + p.getId().getPrenom()));
+			for(Object o : f.getScenaristes()) {
+				Scenaristes p = (Scenaristes)o;
+				if(scenarList.getSelectionModel().getSelectedItem().equals(p.getId().getPersonnes().getId().getNom() + " " + p.getId().getPersonnes().getId().getPrenom()));
 					info = new String(scenarList.getSelectionModel().getSelectedItem() + '\n'
-						+ "Date de naissance : " + p.getNaissance() + '\n'
-						+ "Lieu de naissance : " + p.getLieunaissance() + '\n'
-						+ "Biographie : " + p.getBiographie());
+						+ "Date de naissance : " + p.getId().getPersonnes().getNaissance() + '\n'
+						+ "Lieu de naissance : " + p.getId().getPersonnes().getLieunaissance() + '\n'
+						+ "Biographie : " + p.getId().getPersonnes().getBiographie());
 			}
 			infoPersonneLabel.setText(info);
 		}

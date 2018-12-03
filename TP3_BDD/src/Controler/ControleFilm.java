@@ -18,6 +18,8 @@ import Model.Personnes;
 import Model.PersonnesId;
 import Model.Rolesacteurs;
 import Model.RolesacteursId;
+import Model.ScenaristesId;
+import Model.Scenaristes;
 
 
 public class ControleFilm {
@@ -27,7 +29,7 @@ public class ControleFilm {
 	 */
 	private ArrayList<Films> Films;
 	private ArrayList<Rolesacteurs> RolesActeurs;
-	private ArrayList<Personnes> Scenaristes;
+	private ArrayList<Scenaristes> Scenaristes;
 	private ArrayList<Copies> Copies;
 	
 	/**
@@ -44,7 +46,7 @@ public class ControleFilm {
 	{
 		Films = new ArrayList<Films>();
 		RolesActeurs = new ArrayList<Rolesacteurs>();
-		Scenaristes = new ArrayList<Personnes>();
+		Scenaristes = new ArrayList<Scenaristes>();
 		Copies = new ArrayList<Copies>();
 		ControlerClient = controlerClient;
 		Initialiser();
@@ -74,12 +76,19 @@ public class ControleFilm {
 			Films f = new Films((String) film[0], (int) film[1], (short) film[2], (String) film[3], (String) film[4], (String) film[5], (String) film[6]);
 			
 			//TODO : faire comme les acteurs pour pouvoir permettre la location sans rechargement des clients
-			List<?> lesScenaristes = hbSession.createQuery("select f.personneses from Films f where f.titre = :titre").setParameter("titre", f.getTitre()).list();
+			List<?> lesScenaristes = hbSession.createQuery("select rea.id.personnes.id.nom, rea.id.personnes.id.prenom, rea.id.personnes.naissance, rea.id.personnes.lieunaissance, rea.id.personnes.biographie from Scenaristes rea where rea.id.films.titre = :titre").setParameter("titre", f.getTitre()).list();
 			
 			for(Iterator<?> iScenariste = (Iterator<?>) lesScenaristes.iterator(); iScenariste.hasNext();)
 			{
-				Personnes rea = (Personnes) iScenariste.next();
-				f.getPersonneses().add(rea);
+				Object[] scenariste = (Object[]) iScenariste.next();
+				
+				PersonnesId pId = new PersonnesId((String) scenariste[0], (String) scenariste[1]);
+				Personnes p = new Personnes(pId, (Date) scenariste[2], (String) scenariste[3], (String) scenariste[4]);
+				ScenaristesId reaId = new ScenaristesId(p, f);
+				Scenaristes rea = new Scenaristes(reaId);
+				
+				p.getFilmses().add(f);
+				f.getScenaristes().add(rea);
 				Scenaristes.add(rea);
 			}
 			
@@ -89,17 +98,14 @@ public class ControleFilm {
 			{
 				Object[] acteur = (Object[]) iActeur.next();
 				
-				if(RechercherScenariste((String) acteur[0], (String) acteur[1]) == null)
-				{
-					PersonnesId pId = new PersonnesId((String) acteur[0], (String) acteur[1]);
-					Personnes p = new Personnes(pId, (Date) acteur[2], (String) acteur[3], (String) acteur[4]);
-					RolesacteursId raId = new RolesacteursId(p, f);
-					Rolesacteurs ra = new Rolesacteurs(raId, (String) acteur[5]);
-					
-					p.getFilmses().add(f);
-					f.getRolesacteurses().add(ra);
-					RolesActeurs.add(ra);
-				}
+				PersonnesId pId = new PersonnesId((String) acteur[0], (String) acteur[1]);
+				Personnes p = new Personnes(pId, (Date) acteur[2], (String) acteur[3], (String) acteur[4]);
+				RolesacteursId raId = new RolesacteursId(p, f);
+				Rolesacteurs ra = new Rolesacteurs(raId, (String) acteur[5]);
+				
+				p.getFilmses().add(f);
+				f.getRolesacteurses().add(ra);
+				RolesActeurs.add(ra);
 			}
 			
 			List<?> lesCopies = hbSession.createQuery("select c.numerocopie, c.clients.id.utilisateurs.id.nom, c.clients.id.utilisateurs.id.prenom, c.datelocation from Copies c where c.films.titre = :titre").setParameter("titre", f.getTitre()).list();
@@ -224,9 +230,12 @@ public class ControleFilm {
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		
 		PersonnesId idPersonne = new PersonnesId(nom, prenom);
-		Personnes scenariste = new Personnes(idPersonne, StringToDate(dateNaissance), lieuNaissance, biographie);
+		Personnes personne = new Personnes(idPersonne, StringToDate(dateNaissance), lieuNaissance, biographie);
+		Films film = RechercherFilm(titreFilm);
+		ScenaristesId idScenariste = new ScenaristesId(personne, film);
+		Scenaristes scenariste = new Scenaristes(idScenariste);
 	
-		RechercherFilm(titreFilm).getPersonneses().add(scenariste);
+		film.getScenaristes().add(scenariste);
 		
 		hbSession.save(scenariste);
 		Scenaristes.add(scenariste);
@@ -313,16 +322,16 @@ public class ControleFilm {
 	{
 		Session hbSession = HibernateUtil.DemarerTransaction();
 		
-		Personnes bdScenariste = (Personnes) hbSession.createQuery("from Scenaristes rea where rea.Nom = :nom and rea.Prenom = :prenom and rea.TitreFilm = :titre").setParameter("nom", nom).setParameter("prenom", prenom).setParameter("titre", titreFilm).list().iterator().next();
-		Personnes alScenariste = RechercherScenariste(nom, prenom);
+		Scenaristes bdScenariste = (Scenaristes) hbSession.createQuery("from Scenaristes rea where rea.Nom = :nom and rea.Prenom = :prenom and rea.TitreFilm = :titre").setParameter("nom", nom).setParameter("prenom", prenom).setParameter("titre", titreFilm).list().iterator().next();
+		Scenaristes alScenariste = RechercherScenariste(nom, prenom);
 		
-		bdScenariste.setNaissance(StringToDate(dateNaissance));
-		bdScenariste.setLieunaissance(lieuNaissance);
-		bdScenariste.setBiographie(biographie);
+		bdScenariste.getId().getPersonnes().setNaissance(StringToDate(dateNaissance));
+		bdScenariste.getId().getPersonnes().setLieunaissance(lieuNaissance);
+		bdScenariste.getId().getPersonnes().setBiographie(biographie);
 		
-		alScenariste.setNaissance(StringToDate(dateNaissance));
-		alScenariste.setLieunaissance(lieuNaissance);
-		alScenariste.setBiographie(biographie);
+		alScenariste.getId().getPersonnes().setNaissance(StringToDate(dateNaissance));
+		alScenariste.getId().getPersonnes().setLieunaissance(lieuNaissance);
+		alScenariste.getId().getPersonnes().setBiographie(biographie);
 		
 		HibernateUtil.RealiserTransaction();
 	}
@@ -538,7 +547,7 @@ public class ControleFilm {
 		for(Iterator<Films> iFilm = Films.iterator(); iFilm.hasNext();)
 		{
 			tmpFilm = iFilm.next();
-			nom = new String(((Personnes) tmpFilm.getPersonneses().iterator().next()).getId().getPrenom() + " " + ((Personnes) tmpFilm.getPersonneses().iterator().next()).getId().getNom());
+			nom = new String(((Scenaristes) tmpFilm.getScenaristes()).getId().getPersonnes().getId().getPrenom() + " " + ((Scenaristes) tmpFilm.getScenaristes()).getId().getPersonnes().getId().getNom());
 			if(nom.contains(partNomScenariste))
 			{
 				resultats.add(tmpFilm);
@@ -608,14 +617,14 @@ public class ControleFilm {
 	 * @param prenom : le prenom du scenariste
 	 * @return Personnes scenariste
 	 */
-	public Personnes RechercherScenariste(String nom, String prenom)
+	public Scenaristes RechercherScenariste(String nom, String prenom)
 	{
-		Personnes scenariste = null;
+		Scenaristes scenariste = null;
 		
-		for(Iterator<Personnes> iScenariste = Scenaristes.iterator(); scenariste == null && iScenariste.hasNext();)
+		for(Iterator<Scenaristes> iScenariste = Scenaristes.iterator(); scenariste == null && iScenariste.hasNext();)
 		{
 			scenariste = iScenariste.next();
-			if(!scenariste.getId().getNom().equals(nom) && !scenariste.getId().getPrenom().equals(prenom))
+			if(!scenariste.getId().getPersonnes().getId().getNom().equals(nom) && !scenariste.getId().getPersonnes().getId().getPrenom().equals(prenom))
 			{
 				scenariste = null;
 			}

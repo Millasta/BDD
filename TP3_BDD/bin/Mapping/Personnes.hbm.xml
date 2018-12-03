@@ -40,9 +40,7 @@
                 <column length="30" name="NOM" not-null="true"/>
                 <column length="30" name="PRENOM" not-null="true"/>
             </key>
-            <many-to-many embed-xml="true" entity-name="Model.Films" not-found="exception" unique="false">
-                <column length="100" name="TITREFILM" not-null="true"/>
-            </many-to-many>
+            <one-to-many class="Model.Scenaristes" embed-xml="true" not-found="exception"/>
         </set>
 
     </class>

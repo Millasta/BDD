@@ -31,7 +31,7 @@ public class Films implements java.io.Serializable {
 	/**
 	 * Liste des scenaristes du film
 	 */
-	private Set<Object> personneses = new HashSet<Object>(0);
+	private Set<Object> scenaristes = new HashSet<Object>(0);
 	
 	/**
 	 * Liste des copies du film
@@ -79,7 +79,7 @@ public class Films implements java.io.Serializable {
 	 * @param personnes : les scenaristes du film
 	 * @param copies : les copies du film
 	 */
-	public Films(String titre, int annee, short duree, String langue, String resume, String genres, String paysProduction, Set<Object> rolesActeurs, Set<Object> personnes, Set<Object> copies)
+	public Films(String titre, int annee, short duree, String langue, String resume, String genres, String paysProduction, Set<Object> rolesActeurs, Set<Object> scenaristes, Set<Object> copies)
 	{
 		this.titre = titre;
 		this.annee = annee;
@@ -89,7 +89,7 @@ public class Films implements java.io.Serializable {
 		this.genres = genres;
 		this.paysproduction = paysProduction;
 		this.rolesacteurses = rolesActeurs;
-		this.personneses = personnes;
+		this.scenaristes = scenaristes;
 		this.copieses = copies;
 	}
 
@@ -201,11 +201,13 @@ public class Films implements java.io.Serializable {
 		this.genres = genres;
 	}
 
-	public int getCopies() {
+	public int getCopies()
+	{
 		return copies;
 	}
 
-	public void setCopies(int copies) {
+	public void setCopies(int copies)
+	{
 		this.copies = copies;
 	}
 	
@@ -249,18 +251,18 @@ public class Films implements java.io.Serializable {
 	 * Getter des scenaristes
 	 * @return Set<Object> personneses
 	 */
-	public Set<Object> getPersonneses()
+	public Set<Object> getScenaristes()
 	{
-		return personneses;
+		return scenaristes;
 	}
 
 	/**
 	 * Setter des scenaristes
 	 * @param personnes : les nouveaux scenaristes
 	 */
-	public void setPersonneses(Set<Object> personnes) 
+	public void setScenaristes(Set<Object> personnes) 
 	{
-		this.personneses = personnes;
+		this.scenaristes = personnes;
 	}
 
 	/**

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import Model.Clients;
 import Model.Films;
 import Model.Personnes;
 import Model.Rolesacteurs;
@@ -51,6 +52,7 @@ public class ControlePrincipal {
 	@FXML private Button backInfoButton;
 	@FXML private Button scenarInfoButton;
 	@FXML private Button acteurInfoButton;
+	@FXML private Button rentButton;
 	
 	@FXML private PasswordField empPwdField;
 	@FXML private PasswordField custPwdField;
@@ -310,7 +312,17 @@ public class ControlePrincipal {
 	
 	@FXML
 	public void rent() {
-		//TODO
+		/*if(filmTable.getSelectionModel().getSelectedItem() != null) {
+			Films filmSelect = filmTable.getSelectionModel().getSelectedItem();
+			Clients client = ControlerClient.RechercherParCourriel(courrielField.getText());
+			try {
+				ControlerFilm.Louer(client.getId().getUtilisateurs().getId().getNom(), client.getId().getUtilisateurs().getId().getPrenom(), filmSelect.getTitre());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}*/
 	}
 	
 	@FXML
@@ -403,8 +415,6 @@ public class ControlePrincipal {
 			if(filmsActeur.size() == 0) erreur = true;
 			aucunCritere = false;
 		}
-		
-		System.out.println("Erreur : " + erreur);
 		
 		if(!erreur) {
 			ArrayList<Films> filmsTrouves = new ArrayList<Films>();

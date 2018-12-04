@@ -1,7 +1,6 @@
 package Controler;
 
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import Model.Films;
@@ -52,6 +51,7 @@ public class ControlePrincipal {
 	@FXML private Button backInfoButton;
 	@FXML private Button scenarInfoButton;
 	@FXML private Button acteurInfoButton;
+	@FXML private Button rentButton;
 	
 	@FXML private PasswordField empPwdField;
 	@FXML private PasswordField custPwdField;
@@ -102,7 +102,6 @@ public class ControlePrincipal {
 		ControlerClient = new ControleClient(ControlerForfait);
 		ControlerFilm = new ControleFilm(ControlerClient);
 		ControlerEmploye = new ControleEmploye();
-		//TesterCommunicationBDD();
 	}
 	
 	/**
@@ -112,20 +111,6 @@ public class ControlePrincipal {
 	public void finalize()
 	{
 		HibernateUtil.shutdown();
-	}
-	
-	/**
-	 * Remplie la base de donnees avec des donnees de test
-	 * @throws ParseException 
-	 * @throws SQLException 
-	 */
-	private void TesterCommunicationBDD() throws SQLException, ParseException
-	{		
-		//Test location de film
-		if(ControlerFilm.RechercherCopieLoue("Nom3", "Prenom3", "Venom") == null)
-		{
-			ControlerFilm.Louer("Nom3", "Prenom3", "Venom");
-		}
 	}
 
 	/**
@@ -308,7 +293,17 @@ public class ControlePrincipal {
 	
 	@FXML
 	public void rent() {
-		//TODO
+		/*if(filmTable.getSelectionModel().getSelectedItem() != null) {
+			Films filmSelect = filmTable.getSelectionModel().getSelectedItem();
+			Clients client = ControlerClient.RechercherParCourriel(courrielField.getText());
+			try {
+				ControlerFilm.Louer(client.getId().getUtilisateurs().getId().getNom(), client.getId().getUtilisateurs().getId().getPrenom(), filmSelect.getTitre());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}*/
 	}
 	
 	@FXML
@@ -401,8 +396,6 @@ public class ControlePrincipal {
 			if(filmsActeur.size() == 0) erreur = true;
 			aucunCritere = false;
 		}
-		
-		System.out.println("Erreur : " + erreur);
 		
 		if(!erreur) {
 			ArrayList<Films> filmsTrouves = new ArrayList<Films>();

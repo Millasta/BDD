@@ -14,7 +14,7 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.ControlePrincipal">
    <children>
-      <AnchorPane fx:id="welcomePane" prefHeight="600.0" prefWidth="800.0" visible="false">
+      <AnchorPane fx:id="welcomePane" prefHeight="600.0" prefWidth="800.0">
          <children>
             <Text layoutX="269.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TP3 Base de Données" textAlignment="CENTER" wrappingWidth="263.13671875">
                <font>
@@ -100,7 +100,7 @@
             <PasswordField fx:id="empPwdField" layoutX="321.0" layoutY="221.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="searchFilmPane" prefHeight="600.0" prefWidth="800.0">
+      <AnchorPane fx:id="searchFilmPane" prefHeight="600.0" prefWidth="800.0" visible="false">
          <children>
             <TableView fx:id="filmTable" layoutY="98.0" prefHeight="502.0" prefWidth="591.0">
               <columns>

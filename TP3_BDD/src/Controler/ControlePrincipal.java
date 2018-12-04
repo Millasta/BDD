@@ -1,8 +1,10 @@
 package Controler;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
+import Model.Clients;
 import Model.Films;
 import Model.Personnes;
 import Model.Rolesacteurs;
@@ -51,6 +53,11 @@ public class ControlePrincipal {
 	@FXML private Button backInfoButton;
 	@FXML private Button scenarInfoButton;
 	@FXML private Button acteurInfoButton;
+	@FXML private Button scenarButton;
+	@FXML private Button acteursButton;
+	@FXML private Button genresButton;
+	@FXML private Button paysButtons;
+	@FXML private Button resumeButton;
 	@FXML private Button rentButton;
 	
 	@FXML private PasswordField empPwdField;
@@ -293,7 +300,7 @@ public class ControlePrincipal {
 	
 	@FXML
 	public void rent() {
-		/*if(filmTable.getSelectionModel().getSelectedItem() != null) {
+		if(filmTable.getSelectionModel().getSelectedItem() != null) {
 			Films filmSelect = filmTable.getSelectionModel().getSelectedItem();
 			Clients client = ControlerClient.RechercherParCourriel(courrielField.getText());
 			try {
@@ -303,7 +310,7 @@ public class ControlePrincipal {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-		}*/
+		}
 	}
 	
 	@FXML

@@ -3,8 +3,10 @@ package Controler;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Set;
 
 import Model.Clients;
+import Model.Copies;
 import Model.Films;
 import Model.Personnes;
 import Model.Rolesacteurs;
@@ -436,8 +438,15 @@ public class ControlePrincipal {
 				}
 			}
 			
-			for(Films f : filmsTrouves)
-				f.setCopies(f.getCopieses().size());
+			// Calcul du nb de copies restantes
+			for(Films f : filmsTrouves) {
+				int nbCopies = 0;
+				Set<Object> copies = f.getCopieses();
+				for(Object o : copies)
+					if(((Copies)o).getClients() == null)
+						 nbCopies++;
+				f.setCopies(nbCopies);
+			}
 			filmTable.getItems().addAll(filmsTrouves);
 			errFilmLabel.setVisible(false);
 		}

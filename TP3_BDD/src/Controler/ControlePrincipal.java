@@ -82,6 +82,8 @@ public class ControlePrincipal {
 	@FXML private Label paysLabel;
 	@FXML private Label resumeLabel;
 	@FXML private Label infoPersonneLabel;
+	@FXML private Label rentOKLabel;
+	@FXML private Label rentKOLabel;
 	
 	@FXML private TableView<Films> filmTable;
 	@FXML private TableColumn<String, String> titreCol;
@@ -180,6 +182,8 @@ public class ControlePrincipal {
 	@FXML
 	public void deconnect() {
 		searchFilmPane.setVisible(false);
+		rentOKLabel.setVisible(false);
+		rentKOLabel.setVisible(false);
 		welcomePane.setVisible(true);
 	}
 	
@@ -213,6 +217,8 @@ public class ControlePrincipal {
 	@FXML
 	public void consultScenarPane() {
 		searchFilmPane.setVisible(false);
+		rentOKLabel.setVisible(false);
+		rentKOLabel.setVisible(false);
 		scenarPane.setVisible(true);
 		ObservableList<String> items = FXCollections.observableArrayList();
 		Films filmSelect = filmTable.getSelectionModel().getSelectedItem();
@@ -226,6 +232,8 @@ public class ControlePrincipal {
 	@FXML
 	public void consultActeursPane() {
 		searchFilmPane.setVisible(false);
+		rentOKLabel.setVisible(false);
+		rentKOLabel.setVisible(false);
 		acteursPane.setVisible(true);
 		Films filmSelect = filmTable.getSelectionModel().getSelectedItem();
 		ObservableList<String> items = FXCollections.observableArrayList();
@@ -239,6 +247,8 @@ public class ControlePrincipal {
 	@FXML
 	public void consultGenresPane() {
 		searchFilmPane.setVisible(false);
+		rentOKLabel.setVisible(false);
+		rentKOLabel.setVisible(false);
 		genresPane.setVisible(true);
 		Films filmSelect = filmTable.getSelectionModel().getSelectedItem();
 		genresLabel.setText(filmSelect.getGenres());
@@ -247,6 +257,8 @@ public class ControlePrincipal {
 	@FXML
 	public void consultPaysPane() {
 		searchFilmPane.setVisible(false);
+		rentOKLabel.setVisible(false);
+		rentKOLabel.setVisible(false);
 		paysPane.setVisible(true);
 		Films filmSelect = filmTable.getSelectionModel().getSelectedItem();
 		paysLabel.setText(filmSelect.getPaysproduction());
@@ -255,6 +267,8 @@ public class ControlePrincipal {
 	@FXML
 	public void consultResumePane() {
 		searchFilmPane.setVisible(false);
+		rentOKLabel.setVisible(false);
+		rentKOLabel.setVisible(false);
 		resumePane.setVisible(true);
 		Films filmSelect = filmTable.getSelectionModel().getSelectedItem();
 		resumeLabel.setText(filmSelect.getResume());
@@ -265,6 +279,8 @@ public class ControlePrincipal {
 		String scenar = scenarList.getSelectionModel().getSelectedItem();
 		if(scenar != null) {
 			scenarPane.setVisible(false);
+			rentOKLabel.setVisible(false);
+			rentKOLabel.setVisible(false);
 			infoPersonnePane.setVisible(true);
 			String info = null;
 			Films f = filmTable.getSelectionModel().getSelectedItem();
@@ -285,6 +301,8 @@ public class ControlePrincipal {
 		String acteur = acteurList.getSelectionModel().getSelectedItem();
 		if(acteur != null) {
 			acteursPane.setVisible(false);
+			rentOKLabel.setVisible(false);
+			rentKOLabel.setVisible(false);
 			infoPersonnePane.setVisible(true);
 			String info = null;
 			Films f = filmTable.getSelectionModel().getSelectedItem();
@@ -303,10 +321,14 @@ public class ControlePrincipal {
 	@FXML
 	public void rent() {
 		if(filmTable.getSelectionModel().getSelectedItem() != null) {
+			rentOKLabel.setVisible(false);
+			rentKOLabel.setVisible(false);
 			Films filmSelect = filmTable.getSelectionModel().getSelectedItem();
 			Clients client = ControlerClient.RechercherParCourriel(courrielField.getText());
 			try {
-				ControlerFilm.Louer(client.getId().getUtilisateurs().getId().getNom(), client.getId().getUtilisateurs().getId().getPrenom(), filmSelect.getTitre());
+				boolean loue = ControlerFilm.Louer(client.getId().getUtilisateurs().getId().getNom(), client.getId().getUtilisateurs().getId().getPrenom(), filmSelect.getTitre());
+				rentOKLabel.setVisible(loue);
+				rentKOLabel.setVisible(!loue);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (ParseException e) {
@@ -324,11 +346,15 @@ public class ControlePrincipal {
 		paysPane.setVisible(false);
 		resumePane.setVisible(false);
 		infoPersonnePane.setVisible(false);
+		rentOKLabel.setVisible(false);
+		rentKOLabel.setVisible(false);
 		searchFilmPane.setVisible(true);
 	}
 	
 	@FXML
 	public void search() {
+		rentOKLabel.setVisible(false);
+		rentKOLabel.setVisible(false);
 		
 		filmTable.getItems().clear();
 		

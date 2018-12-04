@@ -166,6 +166,16 @@
                   <Font size="18.0" />
                </font>
             </Label>
+            <Label fx:id="rentOKLabel" layoutX="639.0" layoutY="370.0" prefHeight="69.0" prefWidth="117.0" text="Copie louée !" textAlignment="CENTER" textFill="#00c317" visible="false">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="rentKOLabel" layoutX="607.0" layoutY="370.0" prefHeight="69.0" prefWidth="188.0" text="Echec de la location !" textAlignment="CENTER" textFill="#f20000" visible="false">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="errSearchPane" prefHeight="600.0" prefWidth="800.0" visible="false">
